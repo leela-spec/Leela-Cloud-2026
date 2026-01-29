@@ -1,0 +1,11 @@
+{
+    "version": "3.4.0",
+    "app": {
+        "name": "leela_cloud_2026",
+        "package_name": "com.example.leelacloud2026"
+    },
+    "main": {},
+    "experimental": {
+        "load_packages": true
+    }
+}
