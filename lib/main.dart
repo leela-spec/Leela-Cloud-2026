@@ -3,6 +3,7 @@ import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:leela_cloud_2026/globals/app_state.dart';
+import 'package:leela_cloud_2026/globals/g_s_data.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_home_today.dart';
 import 'package:leela_cloud_2026/pages/leela_home.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppState>(create: (context) => AppState()),
+        ChangeNotifierProvider<GS_Data>(create: (context) => GS_Data()),
       ],
       builder: (context, child) => MaterialApp(
         theme: AppState.of(context).theme,
