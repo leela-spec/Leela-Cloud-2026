@@ -33,6 +33,15 @@ class LeelaHome extends StatelessWidget {
                 decoration: const BoxDecoration(color: Color(0xffba0000)),
               ),
             ),
+            Positioned(
+              top: 255.0,
+              left: 180.0,
+              width: 123.0,
+              height: 332.0,
+              child: Container(
+                decoration: const BoxDecoration(color: Color(0xff254489)),
+              ),
+            ),
           ],
         ),
       ),
