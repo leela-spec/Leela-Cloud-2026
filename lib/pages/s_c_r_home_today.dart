@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:leela_cloud_2026/globals/g_s_data.dart';
-import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
 import 'package:leela_cloud_2026/models/scope_selection_result.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_scope.dart';
 import 'package:leela_cloud_2026/globals/g_s_spark.dart';
@@ -11,6 +10,7 @@ import 'package:leela_cloud_2026/components/c_m_p_row_feature_tabs.dart';
 import 'package:leela_cloud_2026/components/c_m_p_metric_donut.dart';
 import 'package:leela_cloud_2026/components/c_m_p_table_upcoming.dart';
 import 'package:leela_cloud_2026/components/c_m_p_hero_carousel.dart';
+import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
 
 @NowaGenerated()
 class SCR_Home_Today extends StatefulWidget {
@@ -57,15 +57,6 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
     setState(() {
       v_homeOrbTab = p_key;
     });
-  }
-
-  void fn_openSparkPreRun(String p_chunkId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SCR_Spark_PreRun(p_chunkId: p_chunkId),
-      ),
-    );
   }
 
   void fn_showMetricInfo(String p_metricId) {
@@ -547,6 +538,17 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void fn_openSparkPreRun(String p_chunkId) {
+    final gsData = GS_Data.of(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            SCR_Spark_PreRun(p_chunkId: p_chunkId, p_reco: gsData.g_reco),
       ),
     );
   }
