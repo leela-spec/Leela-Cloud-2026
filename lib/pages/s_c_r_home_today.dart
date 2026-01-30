@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:leela_cloud_2026/globals/g_s_data.dart';
+import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
+import 'package:leela_cloud_2026/models/scope_selection_result.dart';
+import 'package:leela_cloud_2026/pages/s_c_r_picker_scope.dart';
+import 'package:leela_cloud_2026/globals/g_s_spark.dart';
+import 'package:leela_cloud_2026/pages/s_c_r_picker_duration.dart';
 import 'package:leela_cloud_2026/components/c_m_p_nav_top_bar.dart';
 import 'package:leela_cloud_2026/components/c_m_p_row_feature_tabs.dart';
 import 'package:leela_cloud_2026/components/c_m_p_metric_donut.dart';
@@ -36,9 +41,77 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
     GS_Data.of(context).fn_seedHomeMockData();
   }
 
+  void fn_toggleUpcomingExpanded() {
+    setState(() {
+      v_isUpcomingExpanded = !v_isUpcomingExpanded;
+    });
+  }
+
+  void fn_home_setHeroIndex(int p_newIndex) {
+    setState(() {
+      v_activeHeroIndex = p_newIndex;
+    });
+  }
+
+  void fn_home_setOrbTab(String p_key) {
+    setState(() {
+      v_homeOrbTab = p_key;
+    });
+  }
+
+  void fn_openSparkPreRun(String p_chunkId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SCR_Spark_PreRun(p_chunkId: p_chunkId),
+      ),
+    );
+  }
+
+  void fn_showMetricInfo(String p_metricId) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Metric Info'),
+        content: Text(
+          'Metric ID: ${p_metricId}\n\nDetailed metric information will be displayed here.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void>? fn_openScopePicker() async {
+    final result = await Navigator.push<ScopeSelectionResult?>(
+      context,
+      MaterialPageRoute(builder: (context) => const SCR_Picker_Scope()),
+    );
+    if (result != null) {
+      GS_Spark.of(context).setScope(result);
+    }
+  }
+
+  Future<void>? fn_openDurationPicker() async {
+    final result = await Navigator.push<int?>(
+      context,
+      MaterialPageRoute(builder: (context) => const SCR_Picker_Duration()),
+    );
+    if (result != null) {
+      GS_Spark.of(context).setMaxDuration(result);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final gsData = GS_Data.of(context);
+    final gsSpark = GS_Spark.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -92,11 +165,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                     CMP_Row_FeatureTabs(
                       p_items: gsData.g_tabs,
                       p_activeKey: v_homeOrbTab,
-                      p_onSelectTab: (key) {
-                        setState(() {
-                          v_homeOrbTab = key;
-                        });
-                      },
+                      p_onSelectTab: fn_home_setOrbTab,
                       p_onOpenTab: (route) {},
                     ),
                     const SizedBox(height: 24.0),
@@ -135,7 +204,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 p_metricId: gsData.g_metrics.isNotEmpty
                                     ? gsData.g_metrics[0].id
                                     : 'metric_tp',
-                                p_onInfo: (metricId) {},
+                                p_onInfo: fn_showMetricInfo,
                               ),
                               CMP_Metric_Donut(
                                 p_label: gsData.g_metrics.length > 1
@@ -153,7 +222,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 p_metricId: gsData.g_metrics.length > 1
                                     ? gsData.g_metrics[1].id
                                     : 'metric_xp',
-                                p_onInfo: (metricId) {},
+                                p_onInfo: fn_showMetricInfo,
                               ),
                               CMP_Metric_Donut(
                                 p_label: gsData.g_metrics.length > 2
@@ -171,7 +240,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 p_metricId: gsData.g_metrics.length > 2
                                     ? gsData.g_metrics[2].id
                                     : 'metric_bp',
-                                p_onInfo: (metricId) {},
+                                p_onInfo: fn_showMetricInfo,
                               ),
                             ],
                           ),
@@ -184,11 +253,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                       child: CMP_Table_Upcoming(
                         p_rows: gsData.g_upcomingRows,
                         p_isExpanded: v_isUpcomingExpanded,
-                        p_onToggle: () {
-                          setState(() {
-                            v_isUpcomingExpanded = !v_isUpcomingExpanded;
-                          });
-                        },
+                        p_onToggle: fn_toggleUpcomingExpanded,
                         p_onTapRow: (rowId) {},
                       ),
                     ),
@@ -198,76 +263,85 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Text(
-                                'Spark',
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimary,
-                                    ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surfaceVariant
-                                    .withValues(alpha: 0.5),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Text(
-                                'Session',
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withValues(alpha: 0.5),
-                                    ),
-                                textAlign: TextAlign.center,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Text(
+                                  'Spark',
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimary,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(width: 8.0),
                           Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12.0,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceVariant
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Text(
+                                  'Session',
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                            .withValues(alpha: 0.5),
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surfaceVariant
-                                    .withValues(alpha: 0.5),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Text(
-                                'Flow',
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withValues(alpha: 0.5),
-                                    ),
-                                textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(width: 8.0),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceVariant
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Text(
+                                  'Flow',
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                            .withValues(alpha: 0.5),
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
@@ -278,12 +352,8 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                     CMP_HeroCarousel(
                       p_items: gsData.g_heroItems,
                       p_activeIndex: v_activeHeroIndex,
-                      p_onSwipe: (newIndex) {
-                        setState(() {
-                          v_activeHeroIndex = newIndex;
-                        });
-                      },
-                      p_onTapItem: (chunkId) {},
+                      p_onSwipe: fn_home_setHeroIndex,
+                      p_onTapItem: fn_openSparkPreRun,
                     ),
                     const SizedBox(height: 24.0),
                     Padding(
@@ -292,87 +362,95 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surfaceVariant
-                                    .withValues(alpha: 0.5),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Scope',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface
-                                              .withValues(alpha: 0.6),
-                                        ),
-                                  ),
-                                  const SizedBox(height: 4.0),
-                                  Text(
-                                    'All Epics',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.onSurface,
-                                        ),
-                                  ),
-                                ],
+                            child: GestureDetector(
+                              onTap: fn_openScopePicker,
+                              child: Container(
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceVariant
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Scope',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withValues(alpha: 0.6),
+                                          ),
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Text(
+                                      gsSpark.g_scope?.label ?? 'All Epics',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(width: 12.0),
                           Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surfaceVariant
-                                    .withValues(alpha: 0.5),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Duration',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface
-                                              .withValues(alpha: 0.6),
-                                        ),
-                                  ),
-                                  const SizedBox(height: 4.0),
-                                  Text(
-                                    'No limit',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w600,
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.onSurface,
-                                        ),
-                                  ),
-                                ],
+                            child: GestureDetector(
+                              onTap: fn_openDurationPicker,
+                              child: Container(
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceVariant
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Duration',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withValues(alpha: 0.6),
+                                          ),
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Text(
+                                      gsSpark.g_maxDurationSeconds == -1
+                                          ? 'No limit'
+                                          : '${(gsSpark.g_maxDurationSeconds / 60).round()} min',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
