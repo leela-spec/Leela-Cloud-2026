@@ -121,7 +121,7 @@ class _CMP_HeroCarouselState extends State<CMP_HeroCarousel> {
   }
 }
 
-@NowaGenerated()
+@NowaGenerated({'auto-width': 400.0, 'auto-height': 309.0})
 class _HeroCard extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
   const _HeroCard({required this.item, this.onTap, super.key});
@@ -129,25 +129,6 @@ class _HeroCard extends StatelessWidget {
   final HeroItem item;
 
   final Function()? onTap;
-
-  IconData _getSymbolIcon(String? symbolKey) {
-    if (symbolKey == null) {
-      return Icons.star;
-    }
-    if (symbolKey == 'music') {
-      return Icons.music_note;
-    }
-    if (symbolKey == 'flashcards') {
-      return Icons.style;
-    }
-    if (symbolKey == 'video') {
-      return Icons.play_circle_outline;
-    }
-    if (symbolKey == 'book') {
-      return Icons.menu_book;
-    }
-    return Icons.star;
-  }
 
   Widget _buildRewardBadge(BuildContext context, String label, int? value) {
     if (value == null) {
@@ -183,131 +164,205 @@ class _HeroCard extends StatelessWidget {
     );
   }
 
+  IconData _getSymbolIcon(String? symbolKey) {
+    if (symbolKey == null) {
+      return Icons.star;
+    }
+    if (symbolKey == 'music') {
+      return Icons.music_note;
+    }
+    if (symbolKey == 'flashcards') {
+      return Icons.style;
+    }
+    if (symbolKey == 'video') {
+      return Icons.play_circle_outline;
+    }
+    if (symbolKey == 'book') {
+      return Icons.menu_book;
+    }
+    return Icons.star;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        height: 220.0,
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Theme.of(context).colorScheme.primaryContainer,
-              Theme.of(context).colorScheme.secondaryContainer,
-            ],
-          ),
+          color: const Color(0xff3d1e52),
           borderRadius: BorderRadius.circular(16.0),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(
-                context,
-              ).colorScheme.primary.withValues(alpha: 0.2),
-              blurRadius: 8.0,
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 12.0,
               offset: const Offset(0.0, 4.0),
             ),
           ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Icon(
-                    _getSymbolIcon(item.symbolKey),
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 28.0,
-                  ),
-                ),
-                if (item.platform != null)
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 6.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Text(
-                      item.platform!,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-              ],
+            Container(
+              width: 56.0,
+              height: 56.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xffe91e63), width: 2.0),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Icon(
+                _getSymbolIcon(item.symbolKey),
+                color: const Color(0xffe91e63),
+                size: 32.0,
+              ),
             ),
             const SizedBox(height: 12.0),
             Text(
               item.title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
               ),
+              textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(height: 4.0),
-            if (item.subtitle != null)
-              Text(
-                item.subtitle!,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onPrimaryContainer.withValues(alpha: 0.7),
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            const SizedBox(height: 8.0),
-            if (item.epicBlock != null)
-              Text(
-                item.epicBlock!,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    _buildRewardBadge(context, 'TP', item.tp),
-                    _buildRewardBadge(context, 'XP', item.xp),
-                    _buildRewardBadge(context, 'BP', item.bp),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    shape: BoxShape.circle,
+            const SizedBox(height: 16.0),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (item.platform != null)
+                          Text(
+                            item.platform!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        const SizedBox(height: 8.0),
+                        const Text(
+                          'Spark - Next Best',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        if (item.epicBlock != null)
+                          Text(
+                            item.epicBlock!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
+                    ),
                   ),
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    size: 20.0,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (item.tp != null)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'TP:',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(width: 12.0),
+                            Text(
+                              '+${item.tp}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      const SizedBox(height: 8.0),
+                      if (item.xp != null)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'XP:',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(width: 12.0),
+                            Text(
+                              '+${item.xp}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      const SizedBox(height: 8.0),
+                      if (item.bp != null)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'BP:',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(width: 12.0),
+                            Text(
+                              '+${item.bp}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            Container(
+              width: 52.0,
+              height: 52.0,
+              decoration: const BoxDecoration(
+                color: Color(0xffe91e63),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: 32.0,
+              ),
             ),
           ],
         ),
