@@ -1,4 +1,38 @@
+import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/cube_size.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+@NowaGenerated()
+class ChunkIsometricButton extends StatefulWidget {
+  @NowaGenerated({'loader': 'auto-constructor'})
+  const ChunkIsometricButton({
+    this.icon,
+    this.outlineColor = Colors.purple,
+    this.size = CubeSize.medium,
+    required this.onTap,
+    this.faceColor,
+    this.strokeWidth = 2.0,
+    super.key,
+  });
+
+  final dynamic icon;
+
+  final Color outlineColor;
+
+  final CubeSize size;
+
+  final void Function() onTap;
+
+  final Color? faceColor;
+
+  final double strokeWidth;
+
+  @override
+  State<ChunkIsometricButton> createState() {
+    return _ChunkIsometricButtonState();
+  }
+}
 
 @NowaGenerated()
 class _ChunkIsometricButtonState extends State<ChunkIsometricButton> {
@@ -75,5 +109,73 @@ class _ChunkIsometricButtonState extends State<ChunkIsometricButton> {
       }
     }
     return const SizedBox.shrink();
+  }
+}
+
+@NowaGenerated()
+class _IsometricCubePainter extends CustomPainter {
+  _IsometricCubePainter({
+    required this.outlineColor,
+    required this.faceColor,
+    required this.strokeWidth,
+  });
+
+  final Color outlineColor;
+
+  final Color faceColor;
+
+  final double strokeWidth;
+
+  @override
+  bool shouldRepaint(_IsometricCubePainter oldDelegate) {
+    return oldDelegate.outlineColor != outlineColor ||
+        oldDelegate.faceColor != faceColor ||
+        oldDelegate.strokeWidth != strokeWidth;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = this.outlineColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = this.strokeWidth
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    final fillPaint = Paint()
+      ..color = this.faceColor
+      ..style = PaintingStyle.fill;
+    final width = size.width;
+    final height = size.height;
+    final depth = width * 0.25;
+    final frontPath = Path()
+      ..moveTo(width * 0.2, height * 0.3)
+      ..lineTo(width * 0.8, height * 0.3)
+      ..lineTo(width * 0.8, height * 0.7)
+      ..lineTo(width * 0.2, height * 0.7)
+      ..close();
+    final topPath = Path()
+      ..moveTo(width * 0.2, height * 0.3)
+      ..lineTo(width * 0.2 + depth * 0.7, height * 0.3 - depth * 0.5)
+      ..lineTo(width * 0.8 + depth * 0.7, height * 0.3 - depth * 0.5)
+      ..lineTo(width * 0.8, height * 0.3)
+      ..close();
+    final rightPath = Path()
+      ..moveTo(width * 0.8, height * 0.3)
+      ..lineTo(width * 0.8 + depth * 0.7, height * 0.3 - depth * 0.5)
+      ..lineTo(width * 0.8 + depth * 0.7, height * 0.7 - depth * 0.5)
+      ..lineTo(width * 0.8, height * 0.7)
+      ..close();
+    canvas.drawPath(
+      topPath,
+      fillPaint..color = this.faceColor.withValues(alpha: 0.05),
+    );
+    canvas.drawPath(
+      rightPath,
+      fillPaint..color = this.faceColor.withValues(alpha: 0.03),
+    );
+    canvas.drawPath(frontPath, fillPaint..color = this.faceColor);
+    canvas.drawPath(topPath, paint);
+    canvas.drawPath(rightPath, paint);
+    canvas.drawPath(frontPath, paint);
   }
 }
