@@ -1,3 +1,4 @@
+// dart
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 
@@ -27,7 +28,7 @@ class WGT_ST_TPBalance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final statusColor = _getStatusColor(context);
-    final clampedValue = tp_balance.clamp(-1, 1);
+    final clampedValue = tp_balance.clamp(-1.0, 1.0).toDouble();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -47,11 +48,11 @@ class WGT_ST_TPBalance extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: FractionallySizedBox(
-                    widthFactor: clampedValue < 0 ? (-clampedValue) : 0,
+                    widthFactor: clampedValue < 0 ? -clampedValue : 0.0,
                     child: Container(
                       height: 24,
                       decoration: BoxDecoration(
-                        color: statusColor.withValues(alpha: 0.7),
+                        color: statusColor.withOpacity(0.7),
                         borderRadius: const BorderRadius.horizontal(
                           left: Radius.circular(4),
                         ),
@@ -65,17 +66,17 @@ class WGT_ST_TPBalance extends StatelessWidget {
                 height: 40,
                 color: Theme.of(
                   context,
-                ).colorScheme.onSurface.withValues(alpha: 0.3),
+                ).colorScheme.onSurface.withOpacity(0.3),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: FractionallySizedBox(
-                    widthFactor: clampedValue > 0 ? clampedValue : 0,
+                    widthFactor: clampedValue > 0 ? clampedValue : 0.0,
                     child: Container(
                       height: 24,
                       decoration: BoxDecoration(
-                        color: statusColor.withValues(alpha: 0.7),
+                        color: statusColor.withOpacity(0.7),
                         borderRadius: const BorderRadius.horizontal(
                           right: Radius.circular(4),
                         ),
@@ -127,7 +128,7 @@ class WGT_ST_TPBalance extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(
               context,
-            ).colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+            ).colorScheme.onSurfaceVariant.withOpacity(0.7),
             fontStyle: FontStyle.italic,
           ),
         ),
