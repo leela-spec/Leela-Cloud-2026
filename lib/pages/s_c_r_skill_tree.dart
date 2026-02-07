@@ -321,7 +321,7 @@ class _RecommendationRow extends StatelessWidget {
   }
 }
 
-@NowaGenerated()
+@NowaGenerated({'auto-width': 394, 'auto-height': 1008})
 class SCR_SkillTree extends StatefulWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
   const SCR_SkillTree({this.focusNodeId, this.focusLevel = '', super.key});
