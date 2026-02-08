@@ -44,7 +44,7 @@ class SCR_Path_Main extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Gap(12),
+                      SizedBox(height: 12),
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(16),
@@ -61,7 +61,7 @@ class SCR_Path_Main extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Gap(12),
+                      SizedBox(height: 12),
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(16),
@@ -78,7 +78,7 @@ class SCR_Path_Main extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Gap(12),
+                      SizedBox(height: 12),
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(16),
