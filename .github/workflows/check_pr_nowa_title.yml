@@ -1,0 +1,33 @@
+name: PR Nowa title check
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened]
+
+jobs:
+  check-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set environment variables
+        run: |
+          echo "BASE_SHA=${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
+          echo "HEAD_SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
+          echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+          echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
+      - name: Run PR Nowa-title reminder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          python3 scripts/check_pr_nowa_title.py
+
