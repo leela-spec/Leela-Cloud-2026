@@ -1,4 +1,3 @@
-import 'package:leela_cloud_2026/pages/lab_playground.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:leela_cloud_2026/integrations/supabase_service.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:leela_cloud_2026/globals/app_state.dart';
 import 'package:leela_cloud_2026/globals/g_s_data.dart';
 import 'package:leela_cloud_2026/globals/g_s_spark.dart';
+import 'package:leela_cloud_2026/pages/lab_playground.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_home_today.dart';
 import 'package:leela_cloud_2026/pages/leela_home.dart';
 
@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, child) => MaterialApp(
         theme: AppState.of(context).theme,
-        //home: const SCR_Home_Today(),
         home: const LabPlayground(),
         routes: {
           'home': (context) => const SCR_Home_Today(),

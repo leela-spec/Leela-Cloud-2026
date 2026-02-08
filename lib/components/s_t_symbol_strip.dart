@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
-import './s_t_symbol_icon.dart';
 
 @NowaGenerated()
 class ST_SymbolStrip extends StatelessWidget {

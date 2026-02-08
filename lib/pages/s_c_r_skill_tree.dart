@@ -59,13 +59,10 @@ class _SearchResultItem extends StatelessWidget {
 
 @NowaGenerated()
 class _R2_SearchPanel extends StatelessWidget {
-  @NowaGenerated({'loader': 'auto-constructor'})
-  const _R2_SearchPanel();
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -81,14 +78,14 @@ class _R2_SearchPanel extends StatelessWidget {
               IconButton(icon: const Icon(Icons.search), onPressed: () {}),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 8.0),
           Text(
             'Skill Trees',
             style: Theme.of(
               context,
             ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 4.0),
           Text(
             '(collapsible epics skill tree → blocks → chunks)',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -119,11 +116,15 @@ class _TreeNode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: level * 32, top: 8, bottom: 8),
+      padding: EdgeInsets.only(left: level * 32, top: 8.0, bottom: 8.0),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Theme.of(context).colorScheme.onSurface),
-          const SizedBox(width: 12),
+          Icon(
+            icon,
+            size: 20.0,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          const SizedBox(width: 12.0),
           Text(
             label,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -148,7 +149,7 @@ class _StatRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -175,7 +176,7 @@ class _TableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         text,
         style: Theme.of(
@@ -197,7 +198,7 @@ class _TableCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyMedium,
@@ -209,17 +210,14 @@ class _TableCell extends StatelessWidget {
 
 @NowaGenerated()
 class _R6_Recommendations extends StatelessWidget {
-  @NowaGenerated({'loader': 'auto-constructor'})
-  const _R6_Recommendations();
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16.0),
       child: Card(
-        elevation: 2,
+        elevation: 2.0,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -229,21 +227,21 @@ class _R6_Recommendations extends StatelessWidget {
                   context,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 16.0),
               const _RecommendationRow(
                 title: 'Liegen ist Frieden',
                 creator: 'L2L',
                 chunks: 65,
                 balance: 'Medium',
               ),
-              const Divider(height: 1),
+              const Divider(height: 1.0),
               const _RecommendationRow(
                 title: 'Aufstehen',
                 creator: 'L2L',
                 chunks: 42,
                 balance: 'Low',
               ),
-              const Divider(height: 1),
+              const Divider(height: 1.0),
               const _RecommendationRow(
                 title: 'Benji – Ich will tanzen',
                 creator: 'L2L',
@@ -279,7 +277,10 @@ class _RecommendationRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 0.0,
+      ),
       title: Text(
         title,
         style: Theme.of(
@@ -287,9 +288,9 @@ class _RecommendationRow extends StatelessWidget {
         ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
       ),
       subtitle: Padding(
-        padding: const EdgeInsets.only(top: 4),
+        padding: const EdgeInsets.only(top: 4.0),
         child: Text(
-          '$creator • $chunks chunks • Balance: $balance',
+          '${creator} • ${chunks} chunks • Balance: ${balance}',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -297,7 +298,7 @@ class _RecommendationRow extends StatelessWidget {
       ),
       trailing: Icon(
         Icons.arrow_forward_ios,
-        size: 16,
+        size: 16.0,
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       onTap: () {
@@ -509,14 +510,14 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) => Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Container(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -537,19 +538,19 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 16.0),
               Text(
                 'Description placeholder: This chunk contains activities designed to help you master specific skills and achieve your learning goals.',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 16.0),
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Text(
                   'Level / Branch / Activity / Platform / Bundle / Successor / Fusion',
@@ -560,7 +561,7 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 24.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -581,11 +582,11 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 child: const Text('Add to Path'),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 16.0),
             ],
           ),
         ),
@@ -597,7 +598,7 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: Size.fromHeight(60.0),
         child: CMP_Nav_TopBar(),
       ),
       body: SingleChildScrollView(
@@ -605,11 +606,15 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const _R2_SearchPanel(),
-            ST_R3TreeAreaBound(
-              treeModel: qry_ST_TreeModel,
-              expandedNodeIds: v_tree_expanded_node_ids,
-              onToggle: (nodeId) {},
-              onChunkTap: FN_OpenChunkInfo,
+            FlexSizedBox(
+              width: 394.0,
+              height: 492.0,
+              child: ST_R3TreeAreaBound(
+                treeModel: qry_ST_TreeModel,
+                expandedNodeIds: v_tree_expanded_node_ids,
+                onToggle: (nodeId) {},
+                onChunkTap: FN_OpenChunkInfo,
+              ),
             ),
             R4Stats(
               currentPageIndex: v_radar_page_index,
