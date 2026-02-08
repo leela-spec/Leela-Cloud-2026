@@ -23,7 +23,11 @@ class ST_SymbolStrip extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         for (int i = 0; i < visibleCount; i++) ...[
-          ST_SymbolIcon(symbol: symbols[i]),
+          Icon(
+            symbols[i] is IconData ? symbols[i] : Icons.help_outline,
+            size: 20.0,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           if (i < visibleCount - 1) const SizedBox(width: 4),
         ],
         if (overflowCount > 0) ...[

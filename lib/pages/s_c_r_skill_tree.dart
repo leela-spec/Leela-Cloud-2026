@@ -605,7 +605,7 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const _R2_SearchPanel(),
+            _R2_SearchPanel(),
             FlexSizedBox(
               width: 394.0,
               height: 492.0,
@@ -625,7 +625,7 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
               },
             ),
             const R5Health(),
-            const _R6_Recommendations(),
+            _R6_Recommendations(),
           ],
         ),
       ),
