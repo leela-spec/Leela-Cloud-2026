@@ -8,7 +8,7 @@ import 'package:leela_cloud_2026/components/r5_health.dart';
 @NowaGenerated()
 class _FilterChip extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _FilterChip({required this.label, super.key});
+  const _FilterChip({required this.label});
 
   final String label;
 
@@ -29,7 +29,6 @@ class _SearchResultItem extends StatelessWidget {
     required this.title,
     required this.type,
     required this.icon,
-    super.key,
   });
 
   final String title;
@@ -61,7 +60,7 @@ class _SearchResultItem extends StatelessWidget {
 @NowaGenerated()
 class _R2_SearchPanel extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _R2_SearchPanel({super.key});
+  const _R2_SearchPanel();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +108,6 @@ class _TreeNode extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.level,
-    super.key,
   });
 
   final IconData icon;
@@ -141,7 +139,7 @@ class _TreeNode extends StatelessWidget {
 @NowaGenerated()
 class _StatRow extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _StatRow({required this.label, required this.value, super.key});
+  const _StatRow({required this.label, required this.value});
 
   final String label;
 
@@ -170,7 +168,7 @@ class _StatRow extends StatelessWidget {
 @NowaGenerated()
 class _TableHeader extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _TableHeader({required this.text, super.key});
+  const _TableHeader({required this.text});
 
   final String text;
 
@@ -192,7 +190,7 @@ class _TableHeader extends StatelessWidget {
 @NowaGenerated()
 class _TableCell extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _TableCell({required this.text, super.key});
+  const _TableCell({required this.text});
 
   final String text;
 
@@ -212,7 +210,7 @@ class _TableCell extends StatelessWidget {
 @NowaGenerated()
 class _R6_Recommendations extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _R6_Recommendations({super.key});
+  const _R6_Recommendations();
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +266,6 @@ class _RecommendationRow extends StatelessWidget {
     required this.creator,
     required this.chunks,
     required this.balance,
-    super.key,
   });
 
   final String title;
@@ -292,7 +289,7 @@ class _RecommendationRow extends StatelessWidget {
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 4),
         child: Text(
-          '${creator} • ${chunks} chunks • Balance: ${balance}',
+          '$creator • $chunks chunks • Balance: $balance',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),

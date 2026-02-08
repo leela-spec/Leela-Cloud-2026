@@ -124,7 +124,7 @@ class _CMP_HeroCarouselState extends State<CMP_HeroCarousel> {
 @NowaGenerated({'auto-width': 400.0, 'auto-height': 309.0})
 class _HeroCard extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _HeroCard({required this.item, this.onTap, super.key});
+  const _HeroCard({required this.item, this.onTap});
 
   final HeroItem item;
 
@@ -153,7 +153,7 @@ class _HeroCard extends StatelessWidget {
           ),
           const SizedBox(width: 4.0),
           Text(
-            '+${value}',
+            '+$value',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
               fontWeight: FontWeight.w700,
               color: Theme.of(context).colorScheme.primary,

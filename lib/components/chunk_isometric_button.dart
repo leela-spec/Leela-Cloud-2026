@@ -136,13 +136,13 @@ class _IsometricCubePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = this.outlineColor
+      ..color = outlineColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = this.strokeWidth
+      ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
     final fillPaint = Paint()
-      ..color = this.faceColor
+      ..color = faceColor
       ..style = PaintingStyle.fill;
     final width = size.width;
     final height = size.height;
@@ -167,13 +167,13 @@ class _IsometricCubePainter extends CustomPainter {
       ..close();
     canvas.drawPath(
       topPath,
-      fillPaint..color = this.faceColor.withValues(alpha: 0.05),
+      fillPaint..color = faceColor.withValues(alpha: 0.05),
     );
     canvas.drawPath(
       rightPath,
-      fillPaint..color = this.faceColor.withValues(alpha: 0.03),
+      fillPaint..color = faceColor.withValues(alpha: 0.03),
     );
-    canvas.drawPath(frontPath, fillPaint..color = this.faceColor);
+    canvas.drawPath(frontPath, fillPaint..color = faceColor);
     canvas.drawPath(topPath, paint);
     canvas.drawPath(rightPath, paint);
     canvas.drawPath(frontPath, paint);

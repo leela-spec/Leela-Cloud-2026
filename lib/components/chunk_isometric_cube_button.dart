@@ -32,14 +32,14 @@ class ChunkIsometricButton extends StatefulWidget {
   final double strokeWidth;
 
   const ChunkIsometricButton({
-    Key? key,
+    super.key,
     required this.icon,
     this.outlineColor = Colors.purple,
     this.size = CubeSize.medium,
     this.onTap,
     this.faceColor,
     this.strokeWidth = 2.0,
-  }) : super(key: key);
+  });
 
   @override
   State<ChunkIsometricButton> createState() => _ChunkIsometricButtonState();

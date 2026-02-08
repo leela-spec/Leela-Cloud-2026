@@ -194,7 +194,7 @@ class _DurationOption extends StatelessWidget {
               ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.15)
               : Theme.of(
                   context,
-                ).colorScheme.surfaceVariant.withValues(alpha: 0.5),
+                ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(8.0),
           border: isSelected
               ? Border.all(

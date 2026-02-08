@@ -47,25 +47,25 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
     });
   }
 
-  void fn_home_setHeroIndex(int p_newIndex) {
+  void fn_home_setHeroIndex(int pNewindex) {
     setState(() {
-      v_activeHeroIndex = p_newIndex;
+      v_activeHeroIndex = pNewindex;
     });
   }
 
-  void fn_home_setOrbTab(String p_key) {
+  void fn_home_setOrbTab(String pKey) {
     setState(() {
-      v_homeOrbTab = p_key;
+      v_homeOrbTab = pKey;
     });
   }
 
-  void fn_showMetricInfo(String p_metricId) {
+  void fn_showMetricInfo(String pMetricid) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Metric Info'),
         content: Text(
-          'Metric ID: ${p_metricId}\n\nDetailed metric information will be displayed here.',
+          'Metric ID: $pMetricid\n\nDetailed metric information will be displayed here.',
         ),
         actions: [
           TextButton(
@@ -131,7 +131,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
-                          ).colorScheme.surfaceVariant.withValues(alpha: 0.5),
+                          ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(12.0),
                           border: Border.all(
                             color: Theme.of(
@@ -289,7 +289,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .surfaceVariant
+                                      .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
@@ -318,7 +318,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .surfaceVariant
+                                      .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
@@ -360,7 +360,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .surfaceVariant
+                                      .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
@@ -406,7 +406,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .surfaceVariant
+                                      .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
@@ -542,13 +542,13 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
     );
   }
 
-  void fn_openSparkPreRun(String p_chunkId) {
+  void fn_openSparkPreRun(String pChunkid) {
     final gsData = GS_Data.of(context);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            SCR_Spark_PreRun(p_chunkId: p_chunkId, p_reco: gsData.g_reco),
+            SCR_Spark_PreRun(p_chunkId: pChunkid, p_reco: gsData.g_reco),
       ),
     );
   }

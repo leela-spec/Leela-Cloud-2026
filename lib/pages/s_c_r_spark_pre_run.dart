@@ -42,7 +42,7 @@ class SCR_Spark_PreRun extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(
                     context,
-                  ).colorScheme.surfaceVariant.withValues(alpha: 0.5),
+                  ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(
                     color: Theme.of(

@@ -40,7 +40,7 @@ class R4Stats extends StatelessWidget {
             const SizedBox(height: 16),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
+              children: [
                 R4MetricCell(label: 'Epics', value: '2'),
                 R4MetricCell(label: 'Blocks', value: '23'),
                 R4MetricCell(label: 'Chunks', value: '134'),

@@ -4,7 +4,7 @@ import 'package:nowa_runtime/nowa_runtime.dart';
 @NowaGenerated()
 class LabPlayground extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const LabPlayground({Key? key});
+  const LabPlayground({super.key, Key? key});
 
   @override
   Widget build(BuildContext context) {

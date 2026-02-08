@@ -82,14 +82,14 @@ class CMP_Metric_Donut extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '${p_realized}',
+                  '$p_realized',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 Text(
-                  '/ ${p_planned}',
+                  '/ $p_planned',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(
                       context,
@@ -130,7 +130,7 @@ class CMP_Metric_Donut extends StatelessWidget {
         ),
         const SizedBox(height: 4.0),
         Text(
-          'Open: ${p_open}',
+          'Open: $p_open',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Theme.of(
               context,
