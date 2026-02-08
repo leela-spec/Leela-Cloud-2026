@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/pages/page_screen_template.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_skill_tree.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_home_today.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_path_main.dart';
@@ -70,6 +71,18 @@ class LabPlayground extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          _NavigationListItem(
+            title: 'Screen Template',
+            icon: Icons.dashboard_outlined,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PageScreenTemplate(),
+                ),
+              );
+            },
+          ),
           _NavigationListItem(
             title: 'Skill Tree',
             icon: Icons.account_tree,
