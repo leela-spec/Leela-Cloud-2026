@@ -1,0 +1,7 @@
+# CODEOWNERS: list owners (replace @your-team with a real GitHub handle/team)
+# Require review from maintainers when generated code or core code is changed
+/lib/ @your-team
+/AGENTS.md @your-team
+/scripts/ @your-team
+.github/workflows/ @your-team
+

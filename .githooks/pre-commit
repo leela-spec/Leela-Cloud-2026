@@ -1,14 +1,33 @@
 #!/usr/bin/env bash
 # .githooks/pre-commit
-# Simple pre-commit hook that runs the Nowa verification script (bash) if available.
-HOOK_DIR=$(cd "$(dirname "$0")" && pwd)
+set -euo pipefail
+
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
+# 1) Run Nowa annotation verification (existing check)
 if [ -x "$REPO_ROOT/scripts/verify_nowa_generated.sh" ]; then
   "$REPO_ROOT/scripts/verify_nowa_generated.sh" || exit $?
 fi
 
-# You can add additional local checks here (formatting, tests, etc.)
+# 2) If there are staged .dart files, run flutter analyze and flutter test (if flutter is available).
+STAGED_DART_FILES=$(git diff --name-only --cached | grep -E '\.dart$' || true)
+if [ -n "$STAGED_DART_FILES" ]; then
+  if command -v flutter >/dev/null 2>&1; then
+    echo "Staged Dart files detected — running flutter analyze..."
+    (cd "$REPO_ROOT" && flutter pub get >/dev/null || true)
+    (cd "$REPO_ROOT" && flutter analyze) || {
+      echo "flutter analyze failed. Fix issues or run 'git commit --no-verify' to bypass locally." >&2
+      exit 1
+    }
+
+    echo "Running flutter test (this may be slow)..."
+    (cd "$REPO_ROOT" && flutter test) || {
+      echo "flutter test failed. Fix tests or run 'git commit --no-verify' to bypass locally." >&2
+      exit 1
+    }
+  else
+    echo "flutter not found on PATH — skipping flutter analyze/test in pre-commit."
+  fi
+fi
 
 exit 0
-

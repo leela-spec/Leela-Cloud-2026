@@ -25,3 +25,11 @@ jobs:
           chmod +x scripts/ci_verify_nowa_generated.sh
           ./scripts/ci_verify_nowa_generated.sh "$BASE_SHA" "$HEAD_SHA"
 
+      - name: Run Nowa-generated block verification (Python)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python3 --version
+          chmod +x scripts/ci_verify_nowa_blocks.py
+          python3 scripts/ci_verify_nowa_blocks.py "$BASE_SHA" "$HEAD_SHA"
