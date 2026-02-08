@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# .githooks/pre-commit
+# Simple pre-commit hook that runs the Nowa verification script (bash) if available.
+HOOK_DIR=$(cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+if [ -x "$REPO_ROOT/scripts/verify_nowa_generated.sh" ]; then
+  "$REPO_ROOT/scripts/verify_nowa_generated.sh" || exit $?
+fi
+
+# You can add additional local checks here (formatting, tests, etc.)
+
+exit 0
+
