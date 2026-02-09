@@ -84,7 +84,7 @@ class LabPlayground extends StatelessWidget {
             },
           ),
           _NavigationListItem(
-            title: 'Skill Tree',
+            title: 'Skill Tree.',
             icon: Icons.account_tree,
             onTap: () {
               Navigator.push(
