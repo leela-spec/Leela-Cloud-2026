@@ -290,7 +290,7 @@ class _RecommendationRow extends StatelessWidget {
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 4.0),
         child: Text(
-          '${creator} • ${chunks} chunks • Balance: ${balance}',
+          '$creator • $chunks chunks • Balance: $balance',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
