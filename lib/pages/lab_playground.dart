@@ -7,6 +7,7 @@ import 'package:leela_cloud_2026/pages/s_c_r_path_main.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_scope.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_duration.dart';
+import 'package:leela_cloud_2026/pages/empty_screen_template.dart';
 
 @NowaGenerated()
 class _NavigationListItem extends StatelessWidget {
@@ -79,6 +80,18 @@ class LabPlayground extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const PageScreenTemplate(),
+                ),
+              );
+            },
+          ),
+          _NavigationListItem(
+            title: 'Empty Screen Template',
+            icon: Icons.layers,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EmptyScreenTemplate(),
                 ),
               );
             },
