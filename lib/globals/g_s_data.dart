@@ -4,7 +4,7 @@ import 'package:leela_cloud_2026/models/hero_item.dart';
 import 'package:leela_cloud_2026/models/upcoming_row.dart';
 import 'package:leela_cloud_2026/models/donut_metric.dart';
 import 'package:leela_cloud_2026/models/recommendation_chunk.dart';
-import 'package:leela_cloud_2026/path_epic_group.dart';
+import 'package:leela_cloud_2026/models/path_epic_group.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:leela_cloud_2026/models/path_item_row.dart';
 import 'package:provider/provider.dart';
@@ -106,6 +106,7 @@ class GS_Data extends ChangeNotifier {
         realized: 121,
         open: 79,
         planned: 200,
+        unit: 'pts',
       ),
       const DonutMetric(
         id: 'metric_xp',
@@ -113,6 +114,7 @@ class GS_Data extends ChangeNotifier {
         realized: 176,
         open: 74,
         planned: 250,
+        unit: 'pts',
       ),
       const DonutMetric(
         id: 'metric_bp',
@@ -120,6 +122,7 @@ class GS_Data extends ChangeNotifier {
         realized: 60,
         open: 60,
         planned: 120,
+        unit: 'pts',
       ),
     ];
     g_reco = const RecommendationChunk(
