@@ -8,6 +8,7 @@ class DonutMetric {
     required this.realized,
     required this.open,
     required this.planned,
+    this.unit = '',
   });
 
   factory DonutMetric.fromJson(Map<String, dynamic> json) {
@@ -17,6 +18,7 @@ class DonutMetric {
       realized: json['realized'] as int? ?? 0,
       open: json['open'] as int? ?? 0,
       planned: json['planned'] as int? ?? 0,
+      unit: json['unit'] as String? ?? '',
     );
   }
 
@@ -30,6 +32,8 @@ class DonutMetric {
 
   final int planned;
 
+  final String unit;
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -37,6 +41,7 @@ class DonutMetric {
       'realized': realized,
       'open': open,
       'planned': planned,
+      'unit': unit,
     };
   }
 }
