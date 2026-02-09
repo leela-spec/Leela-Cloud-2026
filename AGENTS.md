@@ -131,3 +131,69 @@ Contact/owners
 Last-updated: 2026-02-08
 
 If you'd like, I can now create the pre-commit and CI script files and add the sample GitHub Actions workflow (I will add bash + PowerShell versions and hook samples).
+
+---
+
+## NOWA App (Claude Haiku) — agent guardrails & prompting (added 2026-02-09)
+
+Purpose: Additional, strict rules for the NOWA App Flutter agent (Claude Haiku based) so multiple agents do not overwrite, delete, or otherwise interfere with each other's generated code.
+
+1) Absolute preservation rules
+- NEVER delete or modify the annotation `@NowaGenerated()` (exact token match). Agents must preserve it verbatim during edits and refactors.
+- NEVER remove or alter the generated-block markers or headers used by the Nowa toolchain. If content inside a generated block must change, update the generator source and re-run generation, or create a human-reviewed PR with `[nowa-generated]` in the title.
+
+2) Single-source-of-truth & agent ownership
+- Each generator/agent must write only to its designated files or namespaces. When creating files, add a header that documents the generator name and timestamp.
+- If Agent A needs to change files authored by Agent B, Agent A MUST create a PR and explicitly request human review; do not directly push edits that modify another agent's generated files.
+
+3) File header & annotation example (required in every generated file)
+- Include a concise header at the top of generated files. Example (two lines):
+  // NOWA: Claude Haiku | 2026-02-09T12:34:56Z
+  // @NowaGenerated()
+
+4) Commit & branch conventions for generated changes
+- Commit message prefix for generator-only changes: `NOWA: ` (e.g., `NOWA: add EmptyAlternativePageScreenTemplate`).
+- Prefer topic branches for generator changes (e.g., `nowa/<feature>`). Agents should not push directly to `main` unless instructed by a human.
+
+5) What agents are allowed to edit
+- Agents may add new files under `lib/` that follow the generated file header and annotation conventions.
+- Agents may add small wrapper files next to generated files (e.g., `foo_wrapper.dart`) to extend behavior.
+- Agents must NOT modify `AGENTS.md`, `.github/workflows/*`, `.githooks/*`, or `.github/CODEOWNERS.bak`.
+
+6) Verification & pre-commit behavior (what to run)
+- Local pre-commit hook: `.githooks/pre-commit` runs `scripts/verify_nowa_generated.sh` and Flutter checks. Agents should include a verification summary in their commit message.
+- CI verification scripts:
+  - `scripts/ci_verify_nowa_generated.sh` (bash)
+  - `scripts/ci_verify_nowa_blocks.py` (python)
+- Workflows:
+  - `.github/workflows/verify_nowa_generated.yml` (runs on push and pull_request)
+  - `.github/workflows/check_pr_nowa_title.yml` (remains PR-only)
+
+7) Prompt template & mandatory prompt clauses for the NOWA agent
+- Every generation prompt must include (verbatim):
+  - "DO NOT REMOVE OR CHANGE '@NowaGenerated()'"
+  - The exact repo-relative path(s) to modify or create.
+  - The allowed modification scope (e.g., "only add new file X" or "only modify wrapper file Y").
+  - The post-change verification commands to run locally: `flutter analyze` and `flutter test` and `scripts/verify_nowa_generated.sh`.
+
+- Minimal prompt example (agents should use this template):
+
+  Edit instructions for Nowa-generated content
+  - Files: lib/pages/EmptyAlternativePageScreenTemplate.dart
+  - Allowed edits: create a new file only. Do NOT edit any existing file that contains `@NowaGenerated()`.
+  - Forbidden tokens: `@NowaGenerated()`
+  - Post-change checks: run `flutter analyze`, `flutter test`, and `scripts/verify_nowa_generated.sh` locally; include the verification output in the commit body.
+
+8) Failure and conflict handling
+- If verification fails on push, agents MUST not auto-revert or bypass checks. Instead produce a human-review PR that includes the full verification log and a short remediation plan.
+- If a merge conflict involves generated files, create a human-review PR and add a comment explaining why the conflict occurred and which agent owns the canonical version.
+
+9) Human-in-the-loop exceptions
+- If an agent must change generator metadata, workflow files, or `AGENTS.md`, it must (a) create a PR, (b) tag the human maintainers in the PR description, and (c) include a clear justification.
+
+10) Where to look for examples and further context
+- Generated code examples: search for `@NowaGenerated()` across `lib/` to see typical file structure and header usage.
+- Verification scripts and how they run: `scripts/ci_verify_nowa_generated.sh` and `scripts/ci_verify_nowa_blocks.py`.
+
+---
+
