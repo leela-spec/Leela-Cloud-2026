@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leela_cloud_2026/path_epic_group.dart';
+import 'package:leela_cloud_2026/models/path_epic_group.dart';
 import 'package:leela_cloud_2026/models/donut_metric.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 
