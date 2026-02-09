@@ -4,7 +4,9 @@ import 'package:leela_cloud_2026/models/hero_item.dart';
 import 'package:leela_cloud_2026/models/upcoming_row.dart';
 import 'package:leela_cloud_2026/models/donut_metric.dart';
 import 'package:leela_cloud_2026/models/recommendation_chunk.dart';
+import 'package:leela_cloud_2026/path_epic_group.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/models/path_item_row.dart';
 import 'package:provider/provider.dart';
 
 @NowaGenerated()
@@ -26,6 +28,10 @@ class GS_Data extends ChangeNotifier {
   RecommendationChunk? g_reco;
 
   bool g_isSeeded = false;
+
+  List<PathEpicGroup> g_pathEpicGroupsNatalia = [];
+
+  List<String> g_pathSidGuidanceNatalia = [];
 
   void fn_seedHomeMockData() {
     if (g_isSeeded == true) {
@@ -127,6 +133,65 @@ class GS_Data extends ChangeNotifier {
       rewardBP: 4,
       symbolKey: 'music',
     );
+    if (g_pathEpicGroupsNatalia.isEmpty) {
+      g_pathEpicGroupsNatalia = [
+        PathEpicGroup(
+          epicId: 'epic_german',
+          epicTitle: 'LL German',
+          rows: [
+            PathItemRow(
+              id: 'row_1',
+              title: 'Liegen ist Frieden - Listening',
+              branchCode: 'M',
+              tpPlannedMin: 15,
+              priorityUi: 1,
+            ),
+            PathItemRow(
+              id: 'row_2',
+              title: 'Vocabulary Flashcards',
+              branchCode: 'C',
+              tpPlannedMin: 20,
+              priorityUi: 2,
+            ),
+            PathItemRow(
+              id: 'row_3',
+              title: 'Grammar Practice',
+              branchCode: 'P',
+              tpPlannedMin: 25,
+              priorityUi: 1,
+            ),
+            PathItemRow(
+              id: 'row_4',
+              title: 'Conversation Practice',
+              branchCode: 'R',
+              tpPlannedMin: 30,
+              priorityUi: 3,
+            ),
+            PathItemRow(
+              id: 'row_5',
+              title: 'Reading Comprehension',
+              branchCode: 'P',
+              tpPlannedMin: 20,
+              priorityUi: 2,
+            ),
+            PathItemRow(
+              id: 'row_6',
+              title: 'Music Analysis',
+              branchCode: 'M',
+              tpPlannedMin: 10,
+              priorityUi: 3,
+            ),
+          ],
+        ),
+      ];
+    }
+    if (g_pathSidGuidanceNatalia.isEmpty) {
+      g_pathSidGuidanceNatalia = [
+        'Focus on music-based learning this week to make vocabulary stick naturally.',
+        'Balance your practice time between active speaking and passive listening.',
+        'Consider reviewing flashcards right after music sessions for better retention.',
+      ];
+    }
     g_isSeeded = true;
     notifyListeners();
   }

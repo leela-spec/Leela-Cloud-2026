@@ -2,12 +2,21 @@ import 'package:nowa_runtime/nowa_runtime.dart';
 
 @NowaGenerated()
 class PathItemRow {
-  PathItemRow({this.id = '', this.title = ''});
+  PathItemRow({
+    this.id = '',
+    this.title = '',
+    this.branchCode = '',
+    this.tpPlannedMin = 0,
+    this.priorityUi = 0,
+  });
 
   factory PathItemRow.fromJson(Map<String, dynamic> json) {
     return PathItemRow(
       id: json['id'] as String? ?? '',
       title: json['title'] as String? ?? '',
+      branchCode: json['branchCode'] as String? ?? '',
+      tpPlannedMin: json['tpPlannedMin'] as int? ?? 0,
+      priorityUi: json['priorityUi'] as int? ?? 0,
     );
   }
 
@@ -15,7 +24,19 @@ class PathItemRow {
 
   final String title;
 
+  final String branchCode;
+
+  final int tpPlannedMin;
+
+  final int priorityUi;
+
   Map<String, dynamic> toJson() {
-    return {'id': id, 'title': title};
+    return {
+      'id': id,
+      'title': title,
+      'branchCode': branchCode,
+      'tpPlannedMin': tpPlannedMin,
+      'priorityUi': priorityUi,
+    };
   }
 }
