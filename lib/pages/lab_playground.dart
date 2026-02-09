@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/pages/s_c_r_chunk_cube_grid.dart';
 import 'package:leela_cloud_2026/pages/page_screen_template.dart';
+import 'package:leela_cloud_2026/pages/empty_screen_template.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_skill_tree.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_home_today.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_path_main.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_scope.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_duration.dart';
-import 'package:leela_cloud_2026/pages/empty_screen_template.dart';
 
 @NowaGenerated()
 class _NavigationListItem extends StatelessWidget {
@@ -16,6 +17,7 @@ class _NavigationListItem extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.onTap,
+    super.key,
   });
 
   final String title;
@@ -72,6 +74,18 @@ class LabPlayground extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          _NavigationListItem(
+            title: 'Chunk Cube Grid',
+            icon: Icons.grid_3x3,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SCR_ChunkCubeGrid(),
+                ),
+              );
+            },
+          ),
           _NavigationListItem(
             title: 'Screen Template',
             icon: Icons.dashboard_outlined,
