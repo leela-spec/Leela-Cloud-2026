@@ -4,9 +4,9 @@ import 'package:leela_cloud_2026/models/hero_item.dart';
 import 'package:leela_cloud_2026/models/upcoming_row.dart';
 import 'package:leela_cloud_2026/models/donut_metric.dart';
 import 'package:leela_cloud_2026/models/recommendation_chunk.dart';
-import 'package:leela_cloud_2026/path_epic_group.dart';
-import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/models/path_epic_group.dart';
 import 'package:leela_cloud_2026/models/path_item_row.dart';
+import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:provider/provider.dart';
 
 @NowaGenerated()
@@ -29,6 +29,7 @@ class GS_Data extends ChangeNotifier {
 
   bool g_isSeeded = false;
 
+  // New seed holders for Natalia Path and Sid guidance
   List<PathEpicGroup> g_pathEpicGroupsNatalia = [];
 
   List<String> g_pathSidGuidanceNatalia = [];
@@ -133,65 +134,34 @@ class GS_Data extends ChangeNotifier {
       rewardBP: 4,
       symbolKey: 'music',
     );
+
+    // Seed Natalia path epic groups deterministically if empty
     if (g_pathEpicGroupsNatalia.isEmpty) {
       g_pathEpicGroupsNatalia = [
         PathEpicGroup(
-          epicId: 'epic_german',
+          epicId: 'epic_ll_german',
           epicTitle: 'LL German',
           rows: [
-            PathItemRow(
-              id: 'row_1',
-              title: 'Liegen ist Frieden - Listening',
-              branchCode: 'M',
-              tpPlannedMin: 15,
-              priorityUi: 1,
-            ),
-            PathItemRow(
-              id: 'row_2',
-              title: 'Vocabulary Flashcards',
-              branchCode: 'C',
-              tpPlannedMin: 20,
-              priorityUi: 2,
-            ),
-            PathItemRow(
-              id: 'row_3',
-              title: 'Grammar Practice',
-              branchCode: 'P',
-              tpPlannedMin: 25,
-              priorityUi: 1,
-            ),
-            PathItemRow(
-              id: 'row_4',
-              title: 'Conversation Practice',
-              branchCode: 'R',
-              tpPlannedMin: 30,
-              priorityUi: 3,
-            ),
-            PathItemRow(
-              id: 'row_5',
-              title: 'Reading Comprehension',
-              branchCode: 'P',
-              tpPlannedMin: 20,
-              priorityUi: 2,
-            ),
-            PathItemRow(
-              id: 'row_6',
-              title: 'Music Analysis',
-              branchCode: 'M',
-              tpPlannedMin: 10,
-              priorityUi: 3,
-            ),
+            PathItemRow(id: 'p1', title: 'Intro - Basics', branchCode: 'P', tpPlannedMin: 10, priorityUi: 1),
+            PathItemRow(id: 'p2', title: 'Core Vocabulary', branchCode: 'M', tpPlannedMin: 25, priorityUi: 2),
+            PathItemRow(id: 'p3', title: 'Grammar Foundations', branchCode: 'C', tpPlannedMin: 40, priorityUi: 1),
+            PathItemRow(id: 'p4', title: 'Listening Practice', branchCode: 'R', tpPlannedMin: 20, priorityUi: 3),
+            PathItemRow(id: 'p5', title: 'Speaking Drills', branchCode: 'P', tpPlannedMin: 30, priorityUi: 2),
+            PathItemRow(id: 'p6', title: 'Reading - Short Texts', branchCode: 'M', tpPlannedMin: 15, priorityUi: 4),
           ],
         ),
       ];
     }
+
+    // Seed Sid guidance strings deterministically if empty
     if (g_pathSidGuidanceNatalia.isEmpty) {
       g_pathSidGuidanceNatalia = [
-        'Focus on music-based learning this week to make vocabulary stick naturally.',
-        'Balance your practice time between active speaking and passive listening.',
-        'Consider reviewing flashcards right after music sessions for better retention.',
+        'Start with 10–15 minutes active recall daily.',
+        'Focus on Core Vocabulary then add Listening practice.',
+        'Use spaced repetition: short, frequent sessions win.',
       ];
     }
+
     g_isSeeded = true;
     notifyListeners();
   }

@@ -15,8 +15,12 @@ class PathItemRow {
       id: json['id'] as String? ?? '',
       title: json['title'] as String? ?? '',
       branchCode: json['branchCode'] as String? ?? '',
-      tpPlannedMin: json['tpPlannedMin'] as int? ?? 0,
-      priorityUi: json['priorityUi'] as int? ?? 0,
+      tpPlannedMin: (json['tpPlannedMin'] is int)
+          ? json['tpPlannedMin'] as int
+          : (int.tryParse((json['tpPlannedMin'] ?? '').toString()) ?? 0),
+      priorityUi: (json['priorityUi'] is int)
+          ? json['priorityUi'] as int
+          : (int.tryParse((json['priorityUi'] ?? '').toString()) ?? 0),
     );
   }
 
