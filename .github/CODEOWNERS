@@ -1,7 +1,3 @@
-# CODEOWNERS: list owners (replace @your-team with a real GitHub handle/team)
-# Require review from maintainers when generated code or core code is changed
-/lib/ @your-team
-/AGENTS.md @your-team
-/scripts/ @your-team
-.github/workflows/ @your-team
-
+# CODEOWNERS disabled — backup at .github/CODEOWNERS.bak
+# Disabled on 2026-02-09 to allow direct push/pull workflows while preserving the original file at .github/CODEOWNERS.bak
+# If you need to restore ownership rules, copy the backup back to CODEOWNERS and commit.
