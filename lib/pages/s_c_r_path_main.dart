@@ -63,6 +63,12 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
     );
   }
 
+  void fn_openSidGuidanceDetail() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Sid\'s guidance detail coming soon!')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,11 +232,49 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ).colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Sid\'s Guidance Placeholder',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Sid\'s Guidance',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                IconButton(
+                                  onPressed: fn_openSidGuidanceDetail,
+                                  icon: const Icon(Icons.north_east),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12.0),
+                            Card(
+                              elevation: 0.0,
+                              color: Theme.of(context).colorScheme.surface,
+                              child: const Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      '• Focus on finishing current Epics before adding more.',
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      '• Your TP balance is looking healthy for this cycle.',
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      '• Consider exploring "Future Cycles" for long-term planning.',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 12.0),
