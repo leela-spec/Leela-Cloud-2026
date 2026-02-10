@@ -57,6 +57,12 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
     );
   }
 
+  void fn_openAddChunksPicker() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Add Chunks picker coming soon!')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,11 +166,54 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ).colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Your Path Placeholder',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Your Path',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                TextButton.icon(
+                                  onPressed: fn_openAddChunksPicker,
+                                  icon: const Icon(Icons.add),
+                                  label: const Text('Add Chunks'),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12.0),
+                            if (v_pathEpicGroups.isEmpty)
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 20.0,
+                                  ),
+                                  child: Text(
+                                    'No chunks yet. Add your first chunks to build this week.',
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
+                                        ),
+                                  ),
+                                ),
+                              )
+                            else
+                              const SizedBox(
+                                height: 100.0,
+                                child: Center(
+                                  child: Text('Epic-group list placeholder'),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 12.0),
