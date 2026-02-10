@@ -69,6 +69,12 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
     );
   }
 
+  void fn_openCyclePlanner() {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Cycle planner coming soon!')));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -287,11 +293,35 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ).colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(
-                          child: Text(
-                            'Future Cycles Placeholder',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Future Cycles (mock)',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                IconButton(
+                                  onPressed: fn_openCyclePlanner,
+                                  icon: const Icon(Icons.north_east),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12.0),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4.0),
+                              child: Image.network(
+                                'https://images.unsplash.com/photo-1508921234172-b68ed335b3e6?w=600',
+                                height: 150.0,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
