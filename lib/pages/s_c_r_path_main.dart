@@ -4,6 +4,7 @@ import 'package:leela_cloud_2026/models/donut_metric.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_placeholder.dart';
 import 'package:leela_cloud_2026/components/c_m_p_nav_top_bar.dart';
+import 'package:leela_cloud_2026/components/c_m_p_metric_donut.dart';
 
 @NowaGenerated()
 class SCR_Path_Main extends StatefulWidget {
@@ -50,6 +51,12 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
     );
   }
 
+  void fn_openProgressDetail() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Progress detail coming soon!')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,11 +89,65 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ).colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(
-                          child: Text(
-                            'This Week\'s Progress Placeholder',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'This Week\'s Progress',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                IconButton(
+                                  onPressed: fn_openProgressDetail,
+                                  icon: const Icon(Icons.north_east),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12.0),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: SizedBox(
+                                    height: 110.0,
+                                    child: CMP_Metric_Donut(
+                                      p_label: 'TP',
+                                      p_realized: 45,
+                                      p_open: 20,
+                                      p_planned: 35,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 12.0),
+                                const Expanded(
+                                  child: SizedBox(
+                                    height: 110.0,
+                                    child: CMP_Metric_Donut(
+                                      p_label: 'Epic',
+                                      p_realized: 30,
+                                      p_open: 50,
+                                      p_planned: 20,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 12.0),
+                                const Expanded(
+                                  child: SizedBox(
+                                    height: 110.0,
+                                    child: CMP_Metric_Donut(
+                                      p_label: 'Skill',
+                                      p_realized: 60,
+                                      p_open: 10,
+                                      p_planned: 30,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 12.0),
