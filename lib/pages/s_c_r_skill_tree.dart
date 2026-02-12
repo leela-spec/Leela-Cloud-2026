@@ -512,98 +512,6 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
     return {'tp_balance': -0.25, 'tp_status': 'under'};
   }
 
-  void FN_OpenChunkInfo(dynamic chunkPayload) {
-    final chunkName = chunkPayload is Map
-        ? (chunkPayload['name'] ?? 'Unnamed Chunk')
-        : 'Unnamed Chunk';
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-      ),
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      chunkName,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Text(
-                'Description placeholder: This chunk contains activities designed to help you master specific skills and achieve your learning goals.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Level / Branch / Activity / Platform / Bundle / Successor / Fusion',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontStyle: FontStyle.italic,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 24.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Coming soon'),
-                      content: const Text(
-                        'Add to Path feature will be available soon.',
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                child: const Text('Add to Path'),
-              ),
-              const SizedBox(height: 16.0),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -660,6 +568,148 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
             const _R6_Recommendations(),
           ],
         ),
+      ),
+    );
+  }
+
+  void FN_OpenChunkInfo(dynamic chunkPayload) {
+    if (chunkPayload is! Map) {
+      return;
+    }
+    final String name = chunkPayload['name'] ?? 'Unnamed Chunk';
+    final String branch = chunkPayload['branch'] ?? 'General';
+    final String activity = chunkPayload['activity_types'] ?? 'Learning';
+    final String media = chunkPayload['media_type'] ?? 'Standard';
+    final String lvlStr = chunkPayload['lvl'] != null
+        ? 'Lvl ${chunkPayload['lvl']}'
+        : 'No Level';
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 24.0,
+          right: 24.0,
+          top: 24.0,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Text(
+                        '${branch} • ${lvlStr}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24.0),
+            Text(
+              'Explore this unit to master your skills. This chunk involves ${activity} via ${media}.',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 24.0),
+            Wrap(
+              spacing: 8.0,
+              children: [
+                _buildTag(context, Icons.psychology, activity),
+                _buildTag(context, Icons.devices, media),
+                if (chunkPayload['has_bundle'] == true)
+                  _buildTag(context, Icons.layers, 'Bundle'),
+                if (chunkPayload['has_fusion'] == true)
+                  _buildTag(context, Icons.auto_awesome, 'Fusion'),
+              ],
+            ),
+            const SizedBox(height: 32.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Add to Path'),
+                    content: Text('Add ${name} to your learning journey?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Add'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
+              child: const Text('Add to Path'),
+            ),
+            const SizedBox(height: 24.0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTag(BuildContext context, IconData icon, String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14.0, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 6.0),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
