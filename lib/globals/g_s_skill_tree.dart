@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:provider/provider.dart';
 
+import '../integrations/supabase_service.dart';
+
 @NowaGenerated()
 class GS_SkillTree extends ChangeNotifier {
   List<Map<String, dynamic>> _treeModel = [];
