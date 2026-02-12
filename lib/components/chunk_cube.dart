@@ -41,7 +41,16 @@ class _ChunkCubeState extends State<ChunkCube> {
   bool _isPressed = false;
 
   String get _cubeSvg {
-    return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">\n  <!-- Left face -->\n  <path d="M 50 15 L 20 32 L 20 68 L 50 85 Z" fill="#9333EA" fill-opacity="0.3" stroke="#9333EA" stroke-width="2"/>\n  \n  <!-- Right face -->\n  <path d="M 50 15 L 80 32 L 80 68 L 50 85 Z" fill="#9333EA" fill-opacity="0.2" stroke="#9333EA" stroke-width="2"/>\n  \n  <!-- Top face -->\n  <path d="M 50 15 L 20 32 L 50 48 L 80 32 Z" fill="#9333EA" fill-opacity="0.5" stroke="#9333EA" stroke-width="2"/>\n</svg>\n';
+    return '''<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer cube outline -->
+  <path d="M 6.1 93.5 L 64.5 93.5 L 93.9 64.2 L 93.9 6.5 L 35 6.5 L 6.3 35.2 Z" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Inner horizontal edge -->
+  <path d="M 6.2 35.3 L 64.4 35.3" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Inner vertical edge -->
+  <path d="M 64.4 93.4 L 64.4 35.1" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Inner diagonal edge -->
+  <path d="M 93.7 6.6 L 64.3 35.5" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>''';
   }
 
   Widget _buildIcon() {
