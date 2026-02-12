@@ -36,4 +36,15 @@ class SupabaseService {
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpeGFuZnFwYWxmaXdjd2hwZGphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3MjYxNjEsImV4cCI6MjA4NTMwMjE2MX0.d7k8zXtK9GwWPlo0j5swskBJig0SNHvSqsFPrmRsX1w',
     );
   }
+
+  Future<List<Map<String, dynamic>>> qSkillTreeNodeList() async {
+    final response = await Supabase.instance.client
+        .from('v_skill_tree_node_list')
+        .select()
+        .order('epic_id', ascending: true)
+        .order('node_type', ascending: true)
+        .order('sort_order', ascending: true)
+        .order('node_sort_order', ascending: true);
+    return List<Map<String, dynamic>>.from(response);
+  }
 }
