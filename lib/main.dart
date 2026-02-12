@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:leela_cloud_2026/globals/app_state.dart';
 import 'package:leela_cloud_2026/globals/g_s_data.dart';
 import 'package:leela_cloud_2026/globals/g_s_spark.dart';
+import 'package:leela_cloud_2026/globals/g_s_skill_tree.dart';
 import 'package:leela_cloud_2026/pages/lab_playground.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_home_today.dart';
 import 'package:leela_cloud_2026/pages/leela_home.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppState>(create: (context) => AppState()),
         ChangeNotifierProvider<GS_Data>(create: (context) => GS_Data()),
         ChangeNotifierProvider<GS_Spark>(create: (context) => GS_Spark()),
+        ChangeNotifierProvider<GS_SkillTree>(
+          create: (context) => GS_SkillTree(),
+        ),
       ],
       builder: (context, child) => MaterialApp(
         theme: AppState.of(context).theme,
