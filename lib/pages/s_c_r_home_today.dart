@@ -5,12 +5,13 @@ import 'package:leela_cloud_2026/models/scope_selection_result.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_scope.dart';
 import 'package:leela_cloud_2026/globals/g_s_spark.dart';
 import 'package:leela_cloud_2026/pages/s_c_r_picker_duration.dart';
+import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
 import 'package:leela_cloud_2026/components/c_m_p_nav_top_bar.dart';
 import 'package:leela_cloud_2026/components/c_m_p_row_feature_tabs.dart';
 import 'package:leela_cloud_2026/components/c_m_p_metric_donut.dart';
 import 'package:leela_cloud_2026/components/c_m_p_table_upcoming.dart';
 import 'package:leela_cloud_2026/components/c_m_p_hero_carousel.dart';
-import 'package:leela_cloud_2026/pages/s_c_r_spark_pre_run.dart';
+import 'package:leela_cloud_2026/components/c_m_p_metric_donut_sheet.dart';
 
 @NowaGenerated()
 class SCR_Home_Today extends StatefulWidget {
@@ -65,7 +66,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
       builder: (context) => AlertDialog(
         title: const Text('Metric Info'),
         content: Text(
-          'Metric ID: $pMetricid\n\nDetailed metric information will be displayed here.',
+          'Metric ID: ${pMetricid}\n\nDetailed metric information will be displayed here.',
         ),
         actions: [
           TextButton(
@@ -99,6 +100,38 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
     }
   }
 
+  void fn_openSparkPreRun(String pChunkid) {
+    final gsData = GS_Data.of(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            SCR_Spark_PreRun(p_chunkId: pChunkid, p_reco: gsData.g_reco),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 16),
+        Text(label, style: Theme.of(context).textTheme.bodyLarge),
+        const Spacer(),
+        Text(
+          value,
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final gsData = GS_Data.of(context);
@@ -123,16 +156,17 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 16),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Container(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                          borderRadius: BorderRadius.circular(12.0),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest
+                              .withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: Theme.of(
                               context,
@@ -152,16 +186,16 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 16),
                     CMP_Row_FeatureTabs(
                       p_items: gsData.g_tabs,
                       p_activeKey: v_homeOrbTab,
                       p_onSelectTab: fn_home_setOrbTab,
                       p_onOpenTab: (route) {},
                     ),
-                    const SizedBox(height: 24.0),
+                    const SizedBox(height: 24),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -175,7 +209,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                   ).colorScheme.onSurface,
                                 ),
                           ),
-                          const SizedBox(height: 16.0),
+                          const SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -184,8 +218,12 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                     ? gsData.g_metrics[0].label
                                     : 'TP',
                                 p_realized: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].realized
+                                    ? gsData.g_metrics[0].realized.toDouble()
                                     : 0,
+                                p_timeTarget: 65,
+                                p_target: gsData.g_metrics.isNotEmpty
+                                    ? gsData.g_metrics[0].planned.toDouble()
+                                    : 100,
                                 p_open: gsData.g_metrics.isNotEmpty
                                     ? gsData.g_metrics[0].open
                                     : 0,
@@ -196,14 +234,32 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                     ? gsData.g_metrics[0].id
                                     : 'metric_tp',
                                 p_onInfo: fn_showMetricInfo,
+                                p_onTapDonut: () => fn_showDonutDetails(
+                                  gsData.g_metrics.isNotEmpty
+                                      ? gsData.g_metrics[0].label
+                                      : 'TP',
+                                  gsData.g_metrics.isNotEmpty
+                                      ? gsData.g_metrics[0].realized.toDouble()
+                                      : 0,
+                                  gsData.g_metrics.isNotEmpty
+                                      ? gsData.g_metrics[0].open
+                                      : 0,
+                                  gsData.g_metrics.isNotEmpty
+                                      ? gsData.g_metrics[0].planned
+                                      : 0,
+                                ),
                               ),
                               CMP_Metric_Donut(
                                 p_label: gsData.g_metrics.length > 1
                                     ? gsData.g_metrics[1].label
                                     : 'XP',
                                 p_realized: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].realized
+                                    ? gsData.g_metrics[1].realized.toDouble()
                                     : 0,
+                                p_timeTarget: 40,
+                                p_target: gsData.g_metrics.length > 1
+                                    ? gsData.g_metrics[1].planned.toDouble()
+                                    : 100,
                                 p_open: gsData.g_metrics.length > 1
                                     ? gsData.g_metrics[1].open
                                     : 0,
@@ -214,14 +270,32 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                     ? gsData.g_metrics[1].id
                                     : 'metric_xp',
                                 p_onInfo: fn_showMetricInfo,
+                                p_onTapDonut: () => fn_showDonutDetails(
+                                  gsData.g_metrics.length > 1
+                                      ? gsData.g_metrics[1].label
+                                      : 'XP',
+                                  gsData.g_metrics.length > 1
+                                      ? gsData.g_metrics[1].realized.toDouble()
+                                      : 0,
+                                  gsData.g_metrics.length > 1
+                                      ? gsData.g_metrics[1].open
+                                      : 0,
+                                  gsData.g_metrics.length > 1
+                                      ? gsData.g_metrics[1].planned
+                                      : 0,
+                                ),
                               ),
                               CMP_Metric_Donut(
                                 p_label: gsData.g_metrics.length > 2
                                     ? gsData.g_metrics[2].label
                                     : 'BP',
                                 p_realized: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].realized
+                                    ? gsData.g_metrics[2].realized.toDouble()
                                     : 0,
+                                p_timeTarget: 50,
+                                p_target: gsData.g_metrics.length > 2
+                                    ? gsData.g_metrics[2].planned.toDouble()
+                                    : 100,
                                 p_open: gsData.g_metrics.length > 2
                                     ? gsData.g_metrics[2].open
                                     : 0,
@@ -232,15 +306,29 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                     ? gsData.g_metrics[2].id
                                     : 'metric_bp',
                                 p_onInfo: fn_showMetricInfo,
+                                p_onTapDonut: () => fn_showDonutDetails(
+                                  gsData.g_metrics.length > 2
+                                      ? gsData.g_metrics[2].label
+                                      : 'BP',
+                                  gsData.g_metrics.length > 2
+                                      ? gsData.g_metrics[2].realized.toDouble()
+                                      : 0,
+                                  gsData.g_metrics.length > 2
+                                      ? gsData.g_metrics[2].open
+                                      : 0,
+                                  gsData.g_metrics.length > 2
+                                      ? gsData.g_metrics[2].planned
+                                      : 0,
+                                ),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24.0),
+                    const SizedBox(height: 24),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: CMP_Table_Upcoming(
                         p_rows: gsData.g_upcomingRows,
                         p_isExpanded: v_isUpcomingExpanded,
@@ -248,9 +336,9 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         p_onTapRow: (rowId) {},
                       ),
                     ),
-                    const SizedBox(height: 24.0),
+                    const SizedBox(height: 24),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         children: [
                           Expanded(
@@ -258,11 +346,11 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                               onTap: () {},
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0,
+                                  vertical: 12,
                                 ),
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).colorScheme.primary,
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   'Spark',
@@ -278,20 +366,20 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8.0),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: GestureDetector(
                               onTap: () {},
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0,
+                                  vertical: 12,
                                 ),
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   'Session',
@@ -307,20 +395,20 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8.0),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: GestureDetector(
                               onTap: () {},
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0,
+                                  vertical: 12,
                                 ),
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   'Flow',
@@ -339,16 +427,16 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 16),
                     CMP_HeroCarousel(
                       p_items: gsData.g_heroItems,
                       p_activeIndex: v_activeHeroIndex,
                       p_onSwipe: fn_home_setHeroIndex,
                       p_onTapItem: fn_openSparkPreRun,
                     ),
-                    const SizedBox(height: 24.0),
+                    const SizedBox(height: 24),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -356,13 +444,13 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                             child: GestureDetector(
                               onTap: fn_openScopePicker,
                               child: Container(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,7 +467,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                                 .withValues(alpha: 0.6),
                                           ),
                                     ),
-                                    const SizedBox(height: 4.0),
+                                    const SizedBox(height: 4),
                                     Text(
                                       gsSpark.g_scope?.label ?? 'All Epics',
                                       style: Theme.of(context)
@@ -397,18 +485,18 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 12.0),
+                          const SizedBox(width: 12),
                           Expanded(
                             child: GestureDetector(
                               onTap: fn_openDurationPicker,
                               child: Container(
-                                padding: const EdgeInsets.all(12.0),
+                                padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .surfaceContainerHighest
                                       .withValues(alpha: 0.5),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -425,7 +513,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                                 .withValues(alpha: 0.6),
                                           ),
                                     ),
-                                    const SizedBox(height: 4.0),
+                                    const SizedBox(height: 4),
                                     Text(
                                       gsSpark.g_maxDurationSeconds == -1
                                           ? 'No limit'
@@ -448,17 +536,14 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24.0),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
             ),
             Container(
-              height: 60.0,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
-              ),
+              height: 60,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 boxShadow: [
@@ -466,8 +551,8 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                     color: Theme.of(
                       context,
                     ).colorScheme.shadow.withValues(alpha: 0.1),
-                    blurRadius: 8.0,
-                    offset: const Offset(0.0, -2),
+                    blurRadius: 8,
+                    offset: const Offset(0, -2),
                   ),
                 ],
               ),
@@ -480,9 +565,9 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                       Icon(
                         Icons.public,
                         color: Theme.of(context).colorScheme.primary,
-                        size: 24.0,
+                        size: 24,
                       ),
-                      const SizedBox(height: 4.0),
+                      const SizedBox(height: 4),
                       Text(
                         'Universe',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -499,9 +584,9 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         color: Theme.of(
                           context,
                         ).colorScheme.onSurface.withValues(alpha: 0.5),
-                        size: 24.0,
+                        size: 24,
                       ),
-                      const SizedBox(height: 4.0),
+                      const SizedBox(height: 4),
                       Text(
                         'Play',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -520,9 +605,9 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         color: Theme.of(
                           context,
                         ).colorScheme.onSurface.withValues(alpha: 0.5),
-                        size: 24.0,
+                        size: 24,
                       ),
-                      const SizedBox(height: 4.0),
+                      const SizedBox(height: 4),
                       Text(
                         'Kharma',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -542,13 +627,23 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
     );
   }
 
-  void fn_openSparkPreRun(String pChunkid) {
-    final gsData = GS_Data.of(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            SCR_Spark_PreRun(p_chunkId: pChunkid, p_reco: gsData.g_reco),
+  void fn_showDonutDetails(
+    String label,
+    double realized,
+    int open,
+    int planned,
+  ) {
+    final double targetValue = planned > 0 ? planned.toDouble() : 100;
+    final double timeTargetValue = targetValue * 0.65;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => CMP_MetricDonutSheet(
+        p_label: label,
+        p_realized: realized,
+        p_timeTarget: timeTargetValue,
+        p_target: targetValue,
       ),
     );
   }

@@ -95,17 +95,17 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
                           ).colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,41 +125,50 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12.0),
+                            const SizedBox(height: 12),
                             Row(
                               children: [
                                 const Expanded(
                                   child: SizedBox(
-                                    height: 110.0,
+                                    height: 110,
                                     child: CMP_Metric_Donut(
                                       p_label: 'TP',
                                       p_realized: 45,
+                                      p_timeTarget: 40,
+                                      p_target: 100,
                                       p_open: 20,
                                       p_planned: 35,
+                                      p_metricId: 'tp_main',
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 12.0),
+                                const SizedBox(width: 12),
                                 const Expanded(
                                   child: SizedBox(
-                                    height: 110.0,
+                                    height: 110,
                                     child: CMP_Metric_Donut(
                                       p_label: 'Epic',
                                       p_realized: 30,
+                                      p_timeTarget: 50,
+                                      p_target: 100,
                                       p_open: 50,
                                       p_planned: 20,
+                                      p_metricId: 'epic_main',
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 12.0),
+                                const SizedBox(width: 12),
                                 const Expanded(
                                   child: SizedBox(
-                                    height: 110.0,
+                                    height: 110,
                                     child: CMP_Metric_Donut(
                                       p_label: 'Skill',
                                       p_realized: 60,
+                                      p_timeTarget: 30,
+                                      p_target: 100,
                                       p_open: 10,
                                       p_planned: 30,
+                                      p_metricId: 'skill_main',
                                     ),
                                   ),
                                 ),
@@ -168,15 +177,15 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 12.0),
+                      const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
                           ).colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,12 +206,12 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12.0),
+                            const SizedBox(height: 12),
                             if (v_pathEpicGroups.isEmpty)
                               Center(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0,
+                                    vertical: 20,
                                   ),
                                   child: Text(
                                     'No chunks yet. Add your first chunks to build this week.',
@@ -220,7 +229,7 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                               )
                             else
                               const SizedBox(
-                                height: 100.0,
+                                height: 100,
                                 child: Center(
                                   child: Text('Epic-group list placeholder'),
                                 ),
@@ -228,15 +237,15 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 12.0),
+                      const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
                           ).colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,23 +265,23 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12.0),
+                            const SizedBox(height: 12),
                             Card(
-                              elevation: 0.0,
+                              elevation: 0,
                               color: Theme.of(context).colorScheme.surface,
                               child: const Padding(
-                                padding: EdgeInsets.all(12.0),
+                                padding: EdgeInsets.all(12),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
                                     Text(
                                       '• Focus on finishing current Epics before adding more.',
                                     ),
-                                    SizedBox(height: 4.0),
+                                    SizedBox(height: 4),
                                     Text(
                                       '• Your TP balance is looking healthy for this cycle.',
                                     ),
-                                    SizedBox(height: 4.0),
+                                    SizedBox(height: 4),
                                     Text(
                                       '• Consider exploring "Future Cycles" for long-term planning.',
                                     ),
@@ -283,15 +292,15 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 12.0),
+                      const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
                           ).colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,12 +320,12 @@ class _SCR_Path_MainState extends State<SCR_Path_Main> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12.0),
+                            const SizedBox(height: 12),
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(4.0),
+                              borderRadius: BorderRadius.circular(4),
                               child: Image.network(
                                 'https://images.unsplash.com/photo-1508921234172-b68ed335b3e6?w=600',
-                                height: 150.0,
+                                height: 150,
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                               ),
