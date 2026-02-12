@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/globals/g_s_skill_tree.dart';
 import 'package:leela_cloud_2026/components/c_m_p_nav_top_bar.dart';
 import 'package:leela_cloud_2026/components/s_t_r3_tree_area_bound.dart';
 import 'package:leela_cloud_2026/components/r4_stats.dart';
@@ -8,7 +9,7 @@ import 'package:leela_cloud_2026/components/r5_health.dart';
 @NowaGenerated()
 class _FilterChip extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _FilterChip({required this.label});
+  const _FilterChip({required this.label, super.key});
 
   final String label;
 
@@ -29,6 +30,7 @@ class _SearchResultItem extends StatelessWidget {
     required this.title,
     required this.type,
     required this.icon,
+    super.key,
   });
 
   final String title;
@@ -59,6 +61,9 @@ class _SearchResultItem extends StatelessWidget {
 
 @NowaGenerated()
 class _R2_SearchPanel extends StatelessWidget {
+  @NowaGenerated({'loader': 'auto-constructor'})
+  const _R2_SearchPanel({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,6 +110,7 @@ class _TreeNode extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.level,
+    super.key,
   });
 
   final IconData icon;
@@ -140,7 +146,7 @@ class _TreeNode extends StatelessWidget {
 @NowaGenerated()
 class _StatRow extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _StatRow({required this.label, required this.value});
+  const _StatRow({required this.label, required this.value, super.key});
 
   final String label;
 
@@ -169,7 +175,7 @@ class _StatRow extends StatelessWidget {
 @NowaGenerated()
 class _TableHeader extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _TableHeader({required this.text});
+  const _TableHeader({required this.text, super.key});
 
   final String text;
 
@@ -191,7 +197,7 @@ class _TableHeader extends StatelessWidget {
 @NowaGenerated()
 class _TableCell extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _TableCell({required this.text});
+  const _TableCell({required this.text, super.key});
 
   final String text;
 
@@ -210,6 +216,9 @@ class _TableCell extends StatelessWidget {
 
 @NowaGenerated()
 class _R6_Recommendations extends StatelessWidget {
+  @NowaGenerated({'loader': 'auto-constructor'})
+  const _R6_Recommendations({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -264,6 +273,7 @@ class _RecommendationRow extends StatelessWidget {
     required this.creator,
     required this.chunks,
     required this.balance,
+    super.key,
   });
 
   final String title;
@@ -290,7 +300,7 @@ class _RecommendationRow extends StatelessWidget {
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 4.0),
         child: Text(
-          '$creator • $chunks chunks • Balance: $balance',
+          '${creator} • ${chunks} chunks • Balance: ${balance}',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -595,7 +605,16 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      GS_SkillTree.of(context, listen: false).loadTree();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final skillTree = GS_SkillTree.of(context);
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60.0),
@@ -605,17 +624,30 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _R2_SearchPanel(),
-            FlexSizedBox(
-              width: 394.0,
-              height: 492.0,
-              child: ST_R3TreeAreaBound(
-                treeModel: qry_ST_TreeModel,
-                expandedNodeIds: v_tree_expanded_node_ids,
-                onToggle: (nodeId) {},
-                onChunkTap: FN_OpenChunkInfo,
+            const _R2_SearchPanel(),
+            if (skillTree.isLoading)
+              const SizedBox(
+                height: 492.0,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            else if (skillTree.error != null)
+              SizedBox(
+                height: 492.0,
+                child: Center(child: Text('Error: ${skillTree.error}')),
+              )
+            else
+              FlexSizedBox(
+                width: 394.0,
+                height: 492.0,
+                child: ST_R3TreeAreaBound(
+                  treeModel: skillTree.treeModel,
+                  expandedNodeIds: skillTree.expandedNodeIds,
+                  onToggle: (nodeId) {
+                    skillTree.toggleNode(nodeId);
+                  },
+                  onChunkTap: FN_OpenChunkInfo,
+                ),
               ),
-            ),
             R4Stats(
               currentPageIndex: v_radar_page_index,
               onPageChanged: (index) {
@@ -625,7 +657,7 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
               },
             ),
             const R5Health(),
-            _R6_Recommendations(),
+            const _R6_Recommendations(),
           ],
         ),
       ),
