@@ -354,115 +354,6 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
 
   String v_search_text = '';
 
-  List<Map<String, dynamic>> get qry_ST_TreeModel {
-    return [
-      {
-        'id': 'epic_1',
-        'type': 'epic',
-        'name': 'Epic 1: Foundation Skills',
-        'symbols': [Icons.grid_3x3, Icons.fitness_center, Icons.psychology],
-      },
-      {
-        'id': 'epic_2',
-        'type': 'epic',
-        'name': 'Epic 2: Advanced Mastery',
-        'symbols': [Icons.grid_3x3, Icons.handyman, Icons.self_improvement],
-      },
-      {
-        'id': 'block_1',
-        'type': 'block',
-        'name': 'Block 1: Getting Started',
-        'symbols': [
-          Icons.apps,
-          Icons.menu_book,
-          Icons.ondemand_video,
-          Icons.headphones,
-        ],
-      },
-      {
-        'id': 'block_2',
-        'type': 'block',
-        'name': 'Block 2: Core Practice',
-        'symbols': [Icons.apps, Icons.fitness_center, Icons.directions_run],
-      },
-      {
-        'id': 'chunk_1',
-        'type': 'chunk',
-        'name': 'Chunk 1: Introduction to Fundamentals',
-        'symbols': [
-          Icons.view_in_ar,
-          Icons.menu_book,
-          Icons.headphones,
-          Icons.ondemand_video,
-          Icons.checklist,
-          Icons.quiz,
-        ],
-      },
-      {
-        'id': 'chunk_2',
-        'type': 'chunk',
-        'name': 'Chunk 2: Building Strong Habits',
-        'symbols': [
-          Icons.view_in_ar,
-          Icons.directions_run,
-          Icons.self_improvement,
-          Icons.checklist,
-          Icons.layers,
-        ],
-      },
-      {
-        'id': 'chunk_3',
-        'type': 'chunk',
-        'name': 'Chunk 3: Creative Expression Workshop',
-        'symbols': [
-          Icons.view_in_ar,
-          Icons.brush,
-          Icons.groups,
-          Icons.ondemand_video,
-          Icons.record_voice_over,
-          Icons.dashboard_customize,
-        ],
-      },
-      {
-        'id': 'chunk_4',
-        'type': 'chunk',
-        'name': 'Chunk 4: Testing & Assessment Module',
-        'symbols': [
-          Icons.view_in_ar,
-          Icons.quiz,
-          Icons.checklist,
-          Icons.menu_book,
-          Icons.psychology,
-        ],
-      },
-      {
-        'id': 'chunk_5',
-        'type': 'chunk',
-        'name': 'Chunk 5: Advanced Integration Practice',
-        'symbols': [
-          Icons.view_in_ar,
-          Icons.call_merge,
-          Icons.handyman,
-          Icons.fitness_center,
-          Icons.layers,
-          Icons.arrow_right_alt,
-        ],
-      },
-      {
-        'id': 'chunk_6',
-        'type': 'chunk',
-        'name': 'Chunk 6: Mastery & Reflection',
-        'symbols': [
-          Icons.view_in_ar,
-          Icons.self_improvement,
-          Icons.weekend,
-          Icons.celebration,
-          Icons.groups,
-        ],
-      },
-    ];
-  }
-
   List<Map<String, dynamic>> get qry_ST_SearchIndex {
     return [];
   }
@@ -512,65 +403,9 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
     return {'tp_balance': -0.25, 'tp_status': 'under'};
   }
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      GS_SkillTree.of(context, listen: false).loadTree();
-    });
-  }
+  List<Map<String, dynamic>> treeModel = [];
 
-  @override
-  Widget build(BuildContext context) {
-    final skillTree = GS_SkillTree.of(context);
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: CMP_Nav_TopBar(),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const _R2_SearchPanel(),
-            if (skillTree.isLoading)
-              const SizedBox(
-                height: 492.0,
-                child: Center(child: CircularProgressIndicator()),
-              )
-            else if (skillTree.error != null)
-              SizedBox(
-                height: 492.0,
-                child: Center(child: Text('Error: ${skillTree.error}')),
-              )
-            else
-              FlexSizedBox(
-                width: 394.0,
-                height: 492.0,
-                child: ST_R3TreeAreaBound(
-                  treeModel: skillTree.treeModel,
-                  expandedNodeIds: skillTree.expandedNodeIds,
-                  onToggle: (nodeId) {
-                    skillTree.toggleNode(nodeId);
-                  },
-                  onChunkTap: FN_OpenChunkInfo,
-                ),
-              ),
-            R4Stats(
-              currentPageIndex: v_radar_page_index,
-              onPageChanged: (index) {
-                setState(() {
-                  v_radar_page_index = index;
-                });
-              },
-            ),
-            const R5Health(),
-            const _R6_Recommendations(),
-          ],
-        ),
-      ),
-    );
-  }
+  List<String> expandedNodeIds = [];
 
   void FN_OpenChunkInfo(dynamic chunkPayload) {
     if (chunkPayload is! Map) {
@@ -710,6 +545,80 @@ class _SCR_SkillTreeState extends State<SCR_SkillTree> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      const String defaultEpicId = 'EP_c5f6f061008d';
+      GS_SkillTree.of(context, listen: false).loadTree(defaultEpicId).then((_) {
+        setState(() {
+          treeModel = GS_SkillTree.of(context, listen: false).treeModel;
+          expandedNodeIds = GS_SkillTree.of(
+            context,
+            listen: false,
+          ).expandedNodeIds;
+        });
+      });
+    });
+  }
+
+  void onToggle(String nodeId) {
+    GS_SkillTree.of(context, listen: false).toggleNode(nodeId);
+    setState(() {
+      expandedNodeIds = GS_SkillTree.of(context, listen: false).expandedNodeIds;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final skillTree = GS_SkillTree.of(context);
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: CMP_Nav_TopBar(),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const _R2_SearchPanel(),
+            if (skillTree.isLoading)
+              const SizedBox(
+                height: 492.0,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            else if (skillTree.error != null)
+              SizedBox(
+                height: 492.0,
+                child: Center(child: Text('Error: ${skillTree.error}')),
+              )
+            else
+              FlexSizedBox(
+                width: 394.0,
+                height: 492.0,
+                child: ST_R3TreeAreaBound(
+                  treeModel: treeModel,
+                  expandedNodeIds: expandedNodeIds,
+                  onToggle: onToggle,
+                  onChunkTap: FN_OpenChunkInfo,
+                ),
+              ),
+            R4Stats(
+              currentPageIndex: v_radar_page_index,
+              onPageChanged: (index) {
+                setState(() {
+                  v_radar_page_index = index;
+                });
+              },
+            ),
+            const R5Health(),
+            const _R6_Recommendations(),
+          ],
+        ),
       ),
     );
   }

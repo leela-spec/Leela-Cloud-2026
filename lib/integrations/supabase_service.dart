@@ -37,13 +37,14 @@ class SupabaseService {
     );
   }
 
-  Future<List<Map<String, dynamic>>> qSkillTreeNodeList() async {
+  Future<List<Map<String, dynamic>>> q_skill_tree_nodes(String epicId) async {
     final response = await Supabase.instance.client
         .from('v_skill_tree_node_list')
         .select()
-        .order('epic_id', ascending: true)
-        .order('node_type', ascending: true)
+        .eq('epic_id', epicId)
+        .order('node_type_order', ascending: true)
         .order('sort_order', ascending: true)
+        .order('sort_lvl', ascending: true)
         .order('node_sort_order', ascending: true);
     return List<Map<String, dynamic>>.from(response);
   }
