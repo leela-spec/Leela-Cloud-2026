@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
+import 'package:leela_cloud_2026/components/neon_gradient_border.dart';
 
 @NowaGenerated()
 class CMP_Nav_TopBar extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
   const CMP_Nav_TopBar({
-    super.key,
     this.p_title = 'Home',
     this.p_showSearch = true,
     this.p_showSettings = true,
@@ -15,6 +15,7 @@ class CMP_Nav_TopBar extends StatelessWidget {
     this.p_onTapSettings,
     this.p_onTapSid,
     this.p_screenId = '',
+    super.key,
   });
 
   final String p_title;
@@ -67,7 +68,7 @@ class CMP_Nav_TopBar extends StatelessWidget {
     return Container(
       height: 60.0,
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-      color: Theme.of(context).colorScheme.surface,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Row(
         children: p_navOrder
             .map((navItem) => Expanded(child: _buildNavButton(navItem)))
@@ -80,7 +81,7 @@ class CMP_Nav_TopBar extends StatelessWidget {
 @NowaGenerated()
 class _NavButton extends StatelessWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
-  const _NavButton({required this.label, this.onTap});
+  const _NavButton({required this.label, this.onTap, super.key});
 
   final String label;
 
@@ -90,21 +91,25 @@ class _NavButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: onTap != null
-              ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
-              : Colors.transparent,
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: onTap != null
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.onSurface,
+      child: NeonGradientBorder(
+        borderRadius: 8.0,
+        strokeWidth: onTap != null ? 1.5 : 0.0,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            color: onTap != null
+                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
+                : Colors.transparent,
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: onTap != null
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
         ),
