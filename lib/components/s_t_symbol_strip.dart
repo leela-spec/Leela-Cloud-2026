@@ -24,10 +24,10 @@ class ST_SymbolStrip extends StatelessWidget {
       children: [
         for (int i = 0; i < visibleCount; i++) ...[
           _buildSymbol(context, symbols[i]),
-          if (i < visibleCount - 1) const SizedBox(width: 6),
+          if (i < visibleCount - 1 || overflowCount > 0)
+            const SizedBox(width: 6),
         ],
-        if (overflowCount > 0) ...[
-          const SizedBox(width: 4),
+        if (overflowCount > 0)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
@@ -42,7 +42,6 @@ class ST_SymbolStrip extends StatelessWidget {
               ),
             ),
           ),
-        ],
       ],
     );
   }
@@ -68,7 +67,7 @@ class ST_SymbolStrip extends StatelessWidget {
       );
     }
     if (symbol is Map && symbol['type'] == 'badge') {
-      final val = int.tryParse(symbol['value'].toString() ?? '');
+      final val = int.tryParse(symbol['value'].toString());
       if (val != null) {
         return _buildSymbol(context, val);
       }
@@ -81,7 +80,7 @@ class ST_SymbolStrip extends StatelessWidget {
     return Icon(
       symbol is IconData ? symbol : Icons.help_outline,
       size: 20.0,
-      color: Theme.of(context).colorScheme.onSurface,
+      color: Theme.of(context).colorScheme.primary,
     );
   }
 }
