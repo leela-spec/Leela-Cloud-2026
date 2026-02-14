@@ -6,7 +6,6 @@ import 'package:leela_cloud_2026/leela_donut_painter.dart';
 class LeelaMetricDonut extends StatefulWidget {
   @NowaGenerated({'loader': 'auto-constructor'})
   const LeelaMetricDonut({
-    super.key,
     this.label = 'TP',
     this.realized = 0,
     this.timeTarget = 0,
@@ -23,6 +22,7 @@ class LeelaMetricDonut extends StatefulWidget {
     this.deficitColor = const Color(0xFFB3114D),
     this.dotCenterColor = const Color(0xFF000000),
     this.dotRingColor = const Color(0xFFF2F2FF),
+    super.key,
   });
 
   final String label;
@@ -147,6 +147,7 @@ class _LeelaMetricDonutState extends State<LeelaMetricDonut> {
                       alignment: Alignment.center,
                       children: [
                         CustomPaint(
+                          size: Size(widget.size, widget.size),
                           painter: LeelaDonutPainter(
                             realized: realizedAnim,
                             timeTarget: timeTargetAnim,
@@ -174,7 +175,7 @@ class _LeelaMetricDonutState extends State<LeelaMetricDonut> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 6.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     realizedAnim.toStringAsFixed(0),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
