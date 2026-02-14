@@ -10,9 +10,9 @@ final ThemeData lightTheme = ThemeData(
 @NowaGenerated()
 final ThemeData darkTheme = ThemeData(
   colorScheme: const ColorScheme.dark(
-    primary: Color(0xFFD41C9A),
-    secondary: Color(0xFF5F43A4),
-    surface: Color(0xFF481262),
+    primary: Color(0xFFD51EC4),
+    secondary: Color(0xFF8E1483),
+    surface: Color(0xFF21002D),
     error: Color(0xFFB3114D),
     onSurface: Color(0xFFFFFFFF),
     onPrimary: Color(0xFFFFFFFF),
