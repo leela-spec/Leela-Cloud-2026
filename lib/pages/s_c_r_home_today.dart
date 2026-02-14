@@ -10,7 +10,7 @@ import 'package:leela_cloud_2026/components/c_m_p_metric_donut_sheet.dart';
 import 'package:leela_cloud_2026/components/c_m_p_nav_top_bar.dart';
 import 'package:leela_cloud_2026/components/neon_gradient_border.dart';
 import 'package:leela_cloud_2026/components/c_m_p_row_feature_tabs.dart';
-import 'package:leela_cloud_2026/components/c_m_p_metric_donut.dart';
+import 'package:leela_cloud_2026/custom_widgets/leela_metric_donut.dart';
 import 'package:leela_cloud_2026/components/c_m_p_table_upcoming.dart';
 import 'package:leela_cloud_2026/components/c_m_p_hero_carousel.dart';
 
@@ -36,6 +36,24 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
   int v_activeHeroIndex = 0;
 
   String v_homeOrbTab = 'st';
+
+  int v_tp_realized = 40;
+
+  int v_tp_timeTarget = 60;
+
+  int v_tp_target = 120;
+
+  int v_xp_realized = 142;
+
+  int v_xp_timeTarget = 120;
+
+  int v_xp_target = 240;
+
+  int v_bp_realized = 22;
+
+  int v_bp_timeTarget = 30;
+
+  int v_bp_target = 70;
 
   @override
   void initState() {
@@ -217,126 +235,83 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Achievements',
-                            style: Theme.of(context).textTheme.titleMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface,
-                                ),
+                          Row(
+                            children: [
+                              Text(
+                                'Achievements',
+                                style: Theme.of(context).textTheme.titleMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface,
+                                    ),
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                icon: const Icon(Icons.info_outline),
+                                iconSize: 20.0,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.6),
+                                onPressed: () {
+                                  fn_showDonutDetails(
+                                    'Achievements',
+                                    v_tp_realized.toDouble(),
+                                    0,
+                                    v_tp_target,
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 16.0),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CMP_Metric_Donut(
-                                p_label: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].label
-                                    : 'TP',
-                                p_realized: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].realized.toDouble()
-                                    : 0.0,
-                                p_timeTarget: 65.0,
-                                p_target: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].planned.toDouble()
-                                    : 100.0,
-                                p_open: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].open
-                                    : 0,
-                                p_planned: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].planned
-                                    : 0,
-                                p_metricId: gsData.g_metrics.isNotEmpty
-                                    ? gsData.g_metrics[0].id
-                                    : 'metric_tp',
-                                p_onInfo: fn_showMetricInfo,
-                                p_onTapDonut: () => fn_showDonutDetails(
-                                  gsData.g_metrics.isNotEmpty
-                                      ? gsData.g_metrics[0].label
-                                      : 'TP',
-                                  gsData.g_metrics.isNotEmpty
-                                      ? gsData.g_metrics[0].realized.toDouble()
-                                      : 0.0,
-                                  gsData.g_metrics.isNotEmpty
-                                      ? gsData.g_metrics[0].open
-                                      : 0,
-                                  gsData.g_metrics.isNotEmpty
-                                      ? gsData.g_metrics[0].planned
-                                      : 0,
+                              Expanded(
+                                child: Center(
+                                  child: LeelaMetricDonut(
+                                    label: 'TP',
+                                    realized: v_tp_realized.toDouble(),
+                                    timeTarget: v_tp_timeTarget.toDouble(),
+                                    target: v_tp_target.toDouble(),
+                                    size: 72.0,
+                                    thickness: 10.0,
+                                    showTimeDot: true,
+                                    showDeficitStripe: true,
+                                    enablePulse: false,
+                                  ),
                                 ),
                               ),
-                              CMP_Metric_Donut(
-                                p_label: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].label
-                                    : 'XP',
-                                p_realized: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].realized.toDouble()
-                                    : 0.0,
-                                p_timeTarget: 40.0,
-                                p_target: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].planned.toDouble()
-                                    : 100.0,
-                                p_open: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].open
-                                    : 0,
-                                p_planned: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].planned
-                                    : 0,
-                                p_metricId: gsData.g_metrics.length > 1
-                                    ? gsData.g_metrics[1].id
-                                    : 'metric_xp',
-                                p_onInfo: fn_showMetricInfo,
-                                p_onTapDonut: () => fn_showDonutDetails(
-                                  gsData.g_metrics.length > 1
-                                      ? gsData.g_metrics[1].label
-                                      : 'XP',
-                                  gsData.g_metrics.length > 1
-                                      ? gsData.g_metrics[1].realized.toDouble()
-                                      : 0.0,
-                                  gsData.g_metrics.length > 1
-                                      ? gsData.g_metrics[1].open
-                                      : 0,
-                                  gsData.g_metrics.length > 1
-                                      ? gsData.g_metrics[1].planned
-                                      : 0,
+                              Expanded(
+                                child: Center(
+                                  child: LeelaMetricDonut(
+                                    label: 'XP',
+                                    realized: v_xp_realized.toDouble(),
+                                    timeTarget: v_xp_timeTarget.toDouble(),
+                                    target: v_xp_target.toDouble(),
+                                    size: 72.0,
+                                    thickness: 10.0,
+                                    showTimeDot: true,
+                                    showDeficitStripe: true,
+                                    enablePulse: false,
+                                  ),
                                 ),
                               ),
-                              CMP_Metric_Donut(
-                                p_label: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].label
-                                    : 'BP',
-                                p_realized: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].realized.toDouble()
-                                    : 0.0,
-                                p_timeTarget: 50.0,
-                                p_target: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].planned.toDouble()
-                                    : 100.0,
-                                p_open: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].open
-                                    : 0,
-                                p_planned: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].planned
-                                    : 0,
-                                p_metricId: gsData.g_metrics.length > 2
-                                    ? gsData.g_metrics[2].id
-                                    : 'metric_bp',
-                                p_onInfo: fn_showMetricInfo,
-                                p_onTapDonut: () => fn_showDonutDetails(
-                                  gsData.g_metrics.length > 2
-                                      ? gsData.g_metrics[2].label
-                                      : 'BP',
-                                  gsData.g_metrics.length > 2
-                                      ? gsData.g_metrics[2].realized.toDouble()
-                                      : 0.0,
-                                  gsData.g_metrics.length > 2
-                                      ? gsData.g_metrics[2].open
-                                      : 0,
-                                  gsData.g_metrics.length > 2
-                                      ? gsData.g_metrics[2].planned
-                                      : 0,
+                              Expanded(
+                                child: Center(
+                                  child: LeelaMetricDonut(
+                                    label: 'BP',
+                                    realized: v_bp_realized.toDouble(),
+                                    timeTarget: v_bp_timeTarget.toDouble(),
+                                    target: v_bp_target.toDouble(),
+                                    size: 72.0,
+                                    thickness: 10.0,
+                                    showTimeDot: true,
+                                    showDeficitStripe: true,
+                                    enablePulse: false,
+                                  ),
                                 ),
                               ),
                             ],

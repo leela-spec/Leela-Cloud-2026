@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:leela_cloud_2026/components/deprecated-archive/chunk_isometric_cube_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:leela_cloud_2026/cube_size.dart';
 
 @NowaGenerated()
 class ChunkIsometricButton extends StatefulWidget {
