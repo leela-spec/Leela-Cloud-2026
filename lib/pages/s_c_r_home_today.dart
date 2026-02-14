@@ -237,23 +237,24 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                'Achievements',
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onSurface,
-                                    ),
+                              const SizedBox(width: 48.0),
+                              Expanded(
+                                child: Text(
+                                  'Your Achievements This Week',
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.titleMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
+                                      ),
+                                ),
                               ),
-                              const Spacer(),
                               IconButton(
                                 icon: const Icon(Icons.info_outline),
                                 iconSize: 20.0,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.6),
+                                color: Theme.of(context).colorScheme.primary,
                                 onPressed: () {
                                   fn_showDonutDetails(
                                     'Achievements',
