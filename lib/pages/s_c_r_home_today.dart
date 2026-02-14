@@ -194,10 +194,9 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                               'Leela Orb / Multi Epic Skill Tree (placeholder)',
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withValues(alpha: 0.6),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface.withOpacity(0.6),
                                   ),
                               textAlign: TextAlign.center,
                             ),
@@ -406,7 +405,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSurface
-                                            .withValues(alpha: 0.5),
+                                            .withOpacity(0.5),
                                       ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -434,7 +433,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSurface
-                                            .withValues(alpha: 0.5),
+                                            .withOpacity(0.5),
                                       ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -480,7 +479,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface
-                                                .withValues(alpha: 0.6),
+                                                .withOpacity(0.6),
                                           ),
                                     ),
                                     const SizedBox(height: 4.0),
@@ -525,7 +524,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface
-                                                .withValues(alpha: 0.6),
+                                                .withOpacity(0.6),
                                           ),
                                     ),
                                     const SizedBox(height: 4.0),
@@ -568,7 +567,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                   BoxShadow(
                     color: Theme.of(
                       context,
-                    ).colorScheme.shadow.withValues(alpha: 0.1),
+                    ).colorScheme.shadow.withOpacity(0.1),
                     blurRadius: 8.0,
                     offset: const Offset(0.0, -2),
                   ),
@@ -601,7 +600,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         Icons.play_circle_outline,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.5),
+                        ).colorScheme.onSurface.withOpacity(0.5),
                         size: 24.0,
                       ),
                       const SizedBox(height: 4.0),
@@ -610,7 +609,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.5),
+                          ).colorScheme.onSurface.withOpacity(0.5),
                         ),
                       ),
                     ],
@@ -622,7 +621,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         Icons.emoji_events_outlined,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.5),
+                        ).colorScheme.onSurface.withOpacity(0.5),
                         size: 24.0,
                       ),
                       const SizedBox(height: 4.0),
@@ -631,7 +630,7 @@ class _SCR_Home_TodayState extends State<SCR_Home_Today> {
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.5),
+                          ).colorScheme.onSurface.withOpacity(0.5),
                         ),
                       ),
                     ],

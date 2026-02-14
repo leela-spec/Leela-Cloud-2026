@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 /// Size options for the ChunkIsometricButton
-enum CubeSize {
-  small,
-  medium,
-  large,
-  xxl,
-}
+enum CubeSize { small, medium, large, xxl }
 
 /// A custom Flutter widget that displays an interactive isometric cube button
 /// with customizable outline color, icon, and size.
@@ -76,8 +71,7 @@ class _ChunkIsometricButtonState extends State<ChunkIsometricButton> {
       onTapCancel: () => setState(() => _isPressed = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
-        transform: Matrix4.identity()
-          ..scale(_isPressed ? 0.95 : 1.0),
+        transform: Matrix4.identity()..scale(_isPressed ? 0.95 : 1.0),
         child: CustomPaint(
           size: Size(_cubeSize, _cubeSize),
           painter: _IsometricCubePainter(
@@ -88,9 +82,7 @@ class _ChunkIsometricButtonState extends State<ChunkIsometricButton> {
           child: SizedBox(
             width: _cubeSize,
             height: _cubeSize,
-            child: Center(
-              child: _buildIcon(),
-            ),
+            child: Center(child: _buildIcon()),
           ),
         ),
       ),
@@ -111,10 +103,7 @@ class _ChunkIsometricButtonState extends State<ChunkIsometricButton> {
           iconPath,
           width: _iconSize,
           height: _iconSize,
-          colorFilter: ColorFilter.mode(
-            widget.outlineColor,
-            BlendMode.srcIn,
-          ),
+          colorFilter: ColorFilter.mode(widget.outlineColor, BlendMode.srcIn),
         );
       } else {
         return Image.asset(

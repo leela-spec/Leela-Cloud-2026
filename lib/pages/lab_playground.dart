@@ -30,13 +30,13 @@ class _NavigationListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 12.0),
+      elevation: 2.0,
       child: ListTile(
         leading: Icon(
           icon,
           color: Theme.of(context).colorScheme.primary,
-          size: 28,
+          size: 28.0,
         ),
         title: Text(
           title,
@@ -46,7 +46,7 @@ class _NavigationListItem extends StatelessWidget {
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,
-          size: 16,
+          size: 16.0,
           color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
         ),
         onTap: onTap,
@@ -73,7 +73,7 @@ class LabPlayground extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         children: [
           _NavigationListItem(
             title: 'Chunk Cube Grid',
@@ -112,8 +112,8 @@ class LabPlayground extends StatelessWidget {
             },
           ),
           SizedBox(
-            width: 361,
-            height: 60,
+            width: 361.0,
+            height: 60.0,
             child: _NavigationListItem(
               title: 'Skill Tree.',
               icon: Icons.account_tree,

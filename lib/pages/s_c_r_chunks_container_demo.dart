@@ -15,6 +15,24 @@ class SCR_ChunksContainerDemo extends StatefulWidget {
 
 @NowaGenerated()
 class _SCR_ChunksContainerDemoState extends State<SCR_ChunksContainerDemo> {
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+      ),
+    );
+  }
+
+  void _showTapMessage(BuildContext context, String item) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Tapped: ${item}'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,34 +57,29 @@ class _SCR_ChunksContainerDemoState extends State<SCR_ChunksContainerDemo> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 24.0),
-
-              // Demo 1: Empty container
               _buildSectionTitle(context, 'Empty Container'),
               const SizedBox(height: 8.0),
               const ChunksContainerQuad(
-                children: [],
                 strokeColor: Colors.purple,
+                children: const [],
               ),
               const SizedBox(height: 32.0),
-
-              // Demo 2: Single item
               _buildSectionTitle(context, 'Single Item'),
               const SizedBox(height: 8.0),
               ChunksContainerQuad(
+                strokeColor: Colors.purple,
                 children: [
                   ChunkIconItem(
                     iconPath: 'assets/icons/placeholder.png',
                     onTap: () => _showTapMessage(context, 'Item 1'),
                   ),
                 ],
-                strokeColor: Colors.purple,
               ),
               const SizedBox(height: 32.0),
-
-              // Demo 3: Multiple items (3)
               _buildSectionTitle(context, 'Multiple Items (3)'),
               const SizedBox(height: 8.0),
               ChunksContainerQuad(
+                strokeColor: Colors.purple,
                 children: [
                   ChunkIconItem(
                     iconPath: 'assets/icons/placeholder.png',
@@ -81,14 +94,12 @@ class _SCR_ChunksContainerDemoState extends State<SCR_ChunksContainerDemo> {
                     onTap: () => _showTapMessage(context, 'Item 3'),
                   ),
                 ],
-                strokeColor: Colors.purple,
               ),
               const SizedBox(height: 32.0),
-
-              // Demo 4: Many items (5)
               _buildSectionTitle(context, 'Many Items (5)'),
               const SizedBox(height: 8.0),
               ChunksContainerQuad(
+                strokeColor: Colors.purple,
                 children: List.generate(
                   5,
                   (index) => ChunkIconItem(
@@ -96,78 +107,59 @@ class _SCR_ChunksContainerDemoState extends State<SCR_ChunksContainerDemo> {
                     onTap: () => _showTapMessage(context, 'Item ${index + 1}'),
                   ),
                 ),
-                strokeColor: Colors.purple,
               ),
               const SizedBox(height: 32.0),
-
-              // Demo 5: Custom colors (Teal)
               _buildSectionTitle(context, 'Custom Stroke Color (Teal)'),
               const SizedBox(height: 8.0),
               ChunksContainerQuad(
+                strokeColor: Colors.teal,
                 children: List.generate(
                   3,
                   (index) => ChunkIconItem(
                     iconPath: 'assets/icons/placeholder.png',
+                    onTap: () {},
                   ),
                 ),
-                strokeColor: Colors.teal,
               ),
               const SizedBox(height: 32.0),
-
-              // Demo 6: With icon color filter
               _buildSectionTitle(context, 'With Icon Color Filter'),
               const SizedBox(height: 8.0),
               ChunksContainerQuad(
-                children: List.generate(
-                  3,
-                  (index) => ChunkIconItem(
-                    iconPath: 'assets/icons/placeholder.png',
-                  ),
-                ),
                 strokeColor: Colors.deepOrange,
                 iconColorFilter: const ColorFilter.mode(
                   Colors.deepOrange,
                   BlendMode.srcIn,
                 ),
+                children: List.generate(
+                  3,
+                  (index) => ChunkIconItem(
+                    iconPath: 'assets/icons/placeholder.png',
+                    onTap: () {},
+                  ),
+                ),
               ),
               const SizedBox(height: 32.0),
-
-              // Demo 7: Custom sizing
-              _buildSectionTitle(context, 'Custom Size (height: 100, itemSize: 64)'),
+              _buildSectionTitle(
+                context,
+                'Custom Size (height: 100, itemSize: 64)',
+              ),
               const SizedBox(height: 8.0),
               ChunksContainerQuad(
+                strokeColor: Colors.indigo,
+                height: 100.0,
+                itemSize: 64.0,
                 children: List.generate(
                   4,
                   (index) => ChunkIconItem(
                     iconPath: 'assets/icons/placeholder.png',
+                    onTap: () {},
                   ),
                 ),
-                strokeColor: Colors.indigo,
-                height: 100.0,
-                itemSize: 64.0,
               ),
               const SizedBox(height: 40.0),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(BuildContext context, String title) {
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-          ),
-    );
-  }
-
-  void _showTapMessage(BuildContext context, String item) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Tapped: $item'),
-        duration: const Duration(seconds: 1),
       ),
     );
   }

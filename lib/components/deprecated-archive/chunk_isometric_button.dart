@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
-import 'package:leela_cloud_2026/cube_size.dart';
+import 'package:leela_cloud_2026/components/deprecated-archive/chunk_isometric_cube_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 @NowaGenerated()
@@ -60,7 +60,7 @@ class _ChunkIsometricButtonState extends State<ChunkIsometricButton> {
       onTapDown: (_) => setState(() => _isPressed = true),
       onTapUp: (_) {
         setState(() => _isPressed = false);
-        widget.onTap.call();
+        widget.onTap();
       },
       onTapCancel: () => setState(() => _isPressed = false),
       child: AnimatedContainer(
