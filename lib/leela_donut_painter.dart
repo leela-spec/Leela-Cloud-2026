@@ -59,43 +59,62 @@ class LeelaDonutPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = (min(size.width, size.height) - this.thickness) / 2;
     final rect = Rect.fromCircle(center: center, radius: radius);
-    final trackPaint = Paint()
-      ..color = this.track
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = this.thickness
-      ..strokeCap = StrokeCap.round;
+    final Paint trackPaint = Paint();
+    trackPaint.color = this.track;
+    trackPaint.style = PaintingStyle.stroke;
+    trackPaint.strokeWidth = this.thickness;
+    trackPaint.strokeCap = StrokeCap.round;
     canvas.drawArc(rect, 0.0, 2 * pi, false, trackPaint);
-    final progressPaint = Paint()
-      ..color = this.primary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = this.thickness
-      ..strokeCap = StrokeCap.round;
+    final Paint progressPaint = Paint();
+    progressPaint.color = this.primary;
+    progressPaint.style = PaintingStyle.stroke;
+    progressPaint.strokeWidth = this.thickness;
+    progressPaint.strokeCap = StrokeCap.round;
     final sweepAngle = (this.realized / this.target).clamp(0.0, 1.0) * 2 * pi;
     canvas.drawArc(rect, -pi / 2, sweepAngle, false, progressPaint);
     if (this.showDeficitStripe && this.realized < this.timeTarget) {
-      final deficitPaint = Paint()
-        ..color = this.deficit
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = this.thickness
-        ..strokeCap = StrokeCap.round;
-      final startAngle =
+      final Paint deficitPaint = Paint();
+      deficitPaint.color = this.deficit.withValues(alpha: 0.9);
+      deficitPaint.style = PaintingStyle.stroke;
+      deficitPaint.strokeWidth = 2.5;
+      deficitPaint.strokeCap = StrokeCap.round;
+      const double boundarySweep = 8 * pi / 180;
+      final double startAngle =
           -pi / 2 + (this.realized / this.target).clamp(0.0, 1.0) * 2 * pi;
-      final deficitSweep =
-          ((this.timeTarget - this.realized) / this.target).clamp(0.0, 1.0) *
-          2 *
-          pi;
-      canvas.drawArc(rect, startAngle, deficitSweep, false, deficitPaint);
+      canvas.drawArc(
+        rect,
+        startAngle - (boundarySweep / 2),
+        boundarySweep,
+        false,
+        deficitPaint,
+      );
+      final double endAngle =
+          -pi / 2 + (this.timeTarget / this.target).clamp(0.0, 1.0) * 2 * pi;
+      canvas.drawArc(
+        rect,
+        endAngle - (boundarySweep / 2),
+        boundarySweep,
+        false,
+        deficitPaint,
+      );
     }
     if (this.showDot) {
-      final dotAngle =
+      final double dotAngle =
           -pi / 2 + (this.timeTarget / this.target).clamp(0.0, 1.0) * 2 * pi;
-      final dotPos = Offset(
+      final Offset dotPos = Offset(
         center.dx + radius * cos(dotAngle),
         center.dy + radius * sin(dotAngle),
       );
-      final ringPaint = Paint()..color = this.dotRing;
+      final Paint ringPaint = Paint();
+      ringPaint.color = (this.realized >= this.timeTarget)
+          ? this.success
+          : this.deficit;
+      ringPaint.style = PaintingStyle.stroke;
+      ringPaint.strokeWidth = this.thickness * 0.5;
+      ringPaint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 4.0);
       canvas.drawCircle(dotPos, 6.0, ringPaint);
-      final centerPaint = Paint()..color = this.dotCenter;
+      final Paint centerPaint = Paint();
+      centerPaint.color = this.dotCenter;
       canvas.drawCircle(dotPos, 3.0, centerPaint);
     }
   }
