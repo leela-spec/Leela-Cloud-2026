@@ -111,7 +111,6 @@ class LeelaDonutPainter extends CustomPainter {
           : this.deficit;
       ringPaint.style = PaintingStyle.stroke;
       ringPaint.strokeWidth = this.thickness * 0.5;
-      ringPaint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 4.0);
       canvas.drawCircle(dotPos, 6.0, ringPaint);
       final Paint centerPaint = Paint();
       centerPaint.color = this.dotCenter;
