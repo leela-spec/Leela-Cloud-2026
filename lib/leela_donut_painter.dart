@@ -76,7 +76,7 @@ class LeelaDonutPainter extends CustomPainter {
       final Paint deficitPaint = Paint();
       deficitPaint.color = this.deficit.withValues(alpha: 0.9);
       deficitPaint.style = PaintingStyle.stroke;
-      deficitPaint.strokeWidth = 2.5;
+      deficitPaint.strokeWidth = 2.1;
       deficitPaint.strokeCap = StrokeCap.round;
       const double boundarySweep = 8 * pi / 180;
       final double endAngle =
@@ -96,22 +96,18 @@ class LeelaDonutPainter extends CustomPainter {
         center.dx + radius * cos(dotAngle),
         center.dy + radius * sin(dotAngle),
       );
-      final Color ringColor = (this.realized >= this.timeTarget)
+      final Color borderColor = (this.realized >= this.timeTarget)
           ? this.success
           : this.deficit;
-      final Paint bgPaint = Paint();
-      bgPaint.color = this.track.withValues(alpha: 1.0);
-      bgPaint.style = PaintingStyle.fill;
-      canvas.drawCircle(dotPos, 6.0, bgPaint);
-      final Paint ringPaint = Paint();
-      ringPaint.color = ringColor;
-      ringPaint.style = PaintingStyle.stroke;
-      ringPaint.strokeWidth = this.thickness * 0.25;
-      canvas.drawCircle(dotPos, 6.0, ringPaint);
-      final Paint centerPaint = Paint();
-      centerPaint.color = this.dotCenter;
-      centerPaint.style = PaintingStyle.fill;
-      canvas.drawCircle(dotPos, 4.0, centerPaint);
+      const double outerRadius = 6.0;
+      final Paint outerPaint = Paint();
+      outerPaint.color = borderColor;
+      outerPaint.style = PaintingStyle.fill;
+      canvas.drawCircle(dotPos, outerRadius, outerPaint);
+      final Paint innerPaint = Paint();
+      innerPaint.color = this.dotCenter;
+      innerPaint.style = PaintingStyle.fill;
+      canvas.drawCircle(dotPos, 4.0, innerPaint);
     }
   }
 }
