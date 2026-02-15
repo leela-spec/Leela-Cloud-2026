@@ -2,17 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:nowa_runtime/nowa_runtime.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-/// Represents a chunk item with an icon to display in the container
 class ChunkIconItem {
-  const ChunkIconItem({
-    required this.iconPath,
-    this.onTap,
-  });
-
-  /// Path to the icon asset (supports .svg and .png formats)
+  const ChunkIconItem({required this.iconPath, this.onTap});
   final String iconPath;
-
-  /// Optional callback when the chunk icon is tapped
   final VoidCallback? onTap;
 }
 
@@ -62,7 +54,7 @@ class ChunksContainerQuad extends StatelessWidget {
   /// Calculate the total width needed for the container
   double get _calculatedWidth {
     if (children.isEmpty) {
-      return padding.horizontal + skewOffset + 40; // Minimum width
+      return padding.horizontal + skewOffset + 40;
     }
     return (children.length * itemSize) +
         ((children.length - 1) * itemSpacing) +
@@ -70,19 +62,8 @@ class ChunksContainerQuad extends StatelessWidget {
         skewOffset;
   }
 
-  /// Generate the SVG string for the quad outline that grows with width
-  /// Skews to the left to match the cube aesthetic
-  String _buildQuadSvg(double width, double height) {
-    // Left-leaning parallelogram (matches cube aesthetic)
-    // Top-right corner pulled left, bottom-right stays at full width
-    return '''<svg viewBox="0 0 $width $height" xmlns="http://www.w3.org/2000/svg">
-  <path d="M 0 0 L ${width - skewOffset} 0 L $width $height L $skewOffset $height Z" fill="none" stroke="#000000" stroke-width="$strokeWidth" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>''';
-  }
-
   Widget _buildIconItem(ChunkIconItem item) {
     Widget iconWidget;
-
     if (item.iconPath.toLowerCase().endsWith('.svg')) {
       iconWidget = SvgPicture.asset(
         item.iconPath,
@@ -99,26 +80,25 @@ class ChunksContainerQuad extends StatelessWidget {
         fit: BoxFit.contain,
       );
     }
-
     if (item.onTap != null) {
-      return GestureDetector(
-        onTap: item.onTap,
-        child: iconWidget,
-      );
+      return GestureDetector(onTap: item.onTap, child: iconWidget);
     }
     return iconWidget;
+  }
+
+  /// Generate the SVG string for the quad outline that matches the ChunkCube isometric aesthetic
+  String _buildQuadSvg(double width, double height) {
+    return '<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">\n  <!-- Outer outline -->\n  <path d="M 0 ${height} L ${width - skewOffset} ${height} L ${width} ${height - skewOffset} L ${width} 0 L ${skewOffset} 0 L 0 ${skewOffset} Z" fill="none" stroke="#000000" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"/>\n  <!-- Inner horizontal edge -->\n  <path d="M 0 ${skewOffset} L ${width - skewOffset} ${skewOffset}" fill="none" stroke="#000000" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"/>\n  <!-- Inner vertical edge -->\n  <path d="M ${width - skewOffset} ${height} L ${width - skewOffset} ${skewOffset}" fill="none" stroke="#000000" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"/>\n  <!-- Inner diagonal edge -->\n  <path d="M ${width} 0 L ${width - skewOffset} ${skewOffset}" fill="none" stroke="#000000" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"/>\n</svg>';
   }
 
   @override
   Widget build(BuildContext context) {
     final totalWidth = _calculatedWidth;
-
     return SizedBox(
       width: totalWidth,
       height: height,
       child: Stack(
         children: [
-          // Background quad outline
           Positioned.fill(
             child: SvgPicture.string(
               _buildQuadSvg(totalWidth, height),
@@ -126,13 +106,12 @@ class ChunksContainerQuad extends StatelessWidget {
               colorFilter: ColorFilter.mode(strokeColor, BlendMode.srcIn),
             ),
           ),
-          // Children row
           Positioned.fill(
             child: Padding(
               padding: EdgeInsets.only(
-                left: padding.left + (skewOffset / 2),
-                right: padding.right + (skewOffset / 2),
-                top: padding.top,
+                left: padding.left,
+                right: padding.right + skewOffset,
+                top: padding.top + skewOffset,
                 bottom: padding.bottom,
               ),
               child: Row(
@@ -143,7 +122,7 @@ class ChunksContainerQuad extends StatelessWidget {
                   final item = entry.value;
                   return Padding(
                     padding: EdgeInsets.only(
-                      right: index < children.length - 1 ? itemSpacing : 0,
+                      right: index < children.length - 1 ? itemSpacing : 0.0,
                     ),
                     child: _buildIconItem(item),
                   );
