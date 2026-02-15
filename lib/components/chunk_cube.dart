@@ -41,23 +41,14 @@ class _ChunkCubeState extends State<ChunkCube> {
   bool _isPressed = false;
 
   String get _cubeSvg {
-    return '''<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- Outer cube outline -->
-  <path d="M 6.1 93.5 L 64.5 93.5 L 93.9 64.2 L 93.9 6.5 L 35 6.5 L 6.3 35.2 Z" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Inner horizontal edge -->
-  <path d="M 6.2 35.3 L 64.4 35.3" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Inner vertical edge -->
-  <path d="M 64.4 93.4 L 64.4 35.1" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Inner diagonal edge -->
-  <path d="M 93.7 6.6 L 64.3 35.5" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>''';
+    return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">\n  <!-- Outer cube outline -->\n  <path d="M 6.1 93.5 L 64.5 93.5 L 93.9 64.2 L 93.9 6.5 L 35 6.5 L 6.3 35.2 Z" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>\n  <!-- Inner horizontal edge -->\n  <path d="M 6.2 35.3 L 64.4 35.3" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>\n  <!-- Inner vertical edge -->\n  <path d="M 64.4 93.4 L 64.4 35.1" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>\n  <!-- Inner diagonal edge -->\n  <path d="M 93.7 6.6 L 64.3 35.5" fill="none" stroke="#000000" stroke-width="1.56" stroke-linecap="round" stroke-linejoin="round"/>\n</svg>';
   }
 
   Widget _buildIcon() {
     if (widget.icon == null) {
       return const SizedBox.shrink();
     }
-    final iconSize = widget.size * 0.4;
+    final iconSize = widget.size * 0.35;
     final effectiveIconColor = widget.iconColor ?? widget.cubeColor;
     if (widget.icon is IconData) {
       return Icon(
@@ -75,12 +66,7 @@ class _ChunkCubeState extends State<ChunkCube> {
           colorFilter: ColorFilter.mode(effectiveIconColor, BlendMode.srcIn),
         );
       } else {
-        return Image.asset(
-          iconPath,
-          width: iconSize,
-          height: iconSize,
-          color: effectiveIconColor,
-        );
+        return Image.asset(iconPath, width: iconSize, height: iconSize);
       }
     }
     return const SizedBox.shrink();
@@ -92,7 +78,7 @@ class _ChunkCubeState extends State<ChunkCube> {
       onTapDown: (_) => setState(() => _isPressed = true),
       onTapUp: (_) {
         setState(() => _isPressed = false);
-        widget.onTap.call();
+        widget.onTap();
       },
       onTapCancel: () => setState(() => _isPressed = false),
       child: AnimatedContainer(
@@ -118,7 +104,7 @@ class _ChunkCubeState extends State<ChunkCube> {
                 Container(
                   width: widget.size,
                   height: widget.size,
-                  alignment: Alignment.center,
+                  alignment: const Alignment(-0.42, 0.42),
                   child: _buildIcon(),
                 ),
             ],
