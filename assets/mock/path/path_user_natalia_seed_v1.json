@@ -1,0 +1,169 @@
+{
+  "path_epic_groups": [
+    {
+      "epicId": "EP_c5f6f061008d",
+      "epicTitle": "LL German",
+      "isExpanded": true,
+      "rows": [
+        {
+          "id": "pr_001",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_2021fba5b9a7ef",
+          "chunkTitle": "Deutsch B2 Präsenz",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 90,
+          "priorityUi": 8
+        },
+        {
+          "id": "pr_002",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_30acad947a050e",
+          "chunkTitle": "Deutsch B2 Hausaufgaben",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 30,
+          "priorityUi": 7
+        },
+        {
+          "id": "pr_005",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_5b38a2ba27d341",
+          "chunkTitle": "Grammar Basis",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 15,
+          "priorityUi": 6
+        },
+        {
+          "id": "pr_007",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_3326a9cfb678cd",
+          "chunkTitle": "Podcast 2",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 15,
+          "priorityUi": 5
+        },
+        {
+          "id": "pr_003",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_fa81071c741b1d",
+          "chunkTitle": "Deutsch B2 Precap",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 10,
+          "priorityUi": 6
+        },
+        {
+          "id": "pr_004",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_eca3b23deaee56",
+          "chunkTitle": "Deutsch B2 Recap",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 10,
+          "priorityUi": 6
+        },
+        {
+          "id": "pr_006",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_6c6c5456c8f75a",
+          "chunkTitle": "Comedy FC 1",
+          "branchCode": "C",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 10,
+          "priorityUi": 5
+        },
+        {
+          "id": "pr_009",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_ae50a9e102b54b",
+          "chunkTitle": "Deutsche Welle",
+          "branchCode": "R",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 10,
+          "priorityUi": 5
+        },
+        {
+          "id": "pr_008",
+          "epicId": "EP_c5f6f061008d",
+          "epicTitle": "LL German",
+          "chunkId": "CH_d009adaadee3da",
+          "chunkTitle": "Seeed - Aufstehn",
+          "branchCode": "R",
+          "tpDoneMin": 0,
+          "tpPlannedMin": 4,
+          "priorityUi": 4
+        }
+      ]
+    }
+  ],
+  "path_metrics": [
+    {
+      "id": "tp",
+      "label": "TP",
+      "realizedValue": 0,
+      "openValue": 194,
+      "plannedValue": 194,
+      "unitLabel": "min"
+    },
+    {
+      "id": "bp",
+      "label": "BP",
+      "realizedValue": 0,
+      "openValue": 1331,
+      "plannedValue": 1331,
+      "unitLabel": "pts"
+    },
+    {
+      "id": "rp",
+      "label": "RP",
+      "realizedValue": 0,
+      "openValue": 6,
+      "plannedValue": 6,
+      "unitLabel": "score"
+    }
+  ],
+  "sid_guidance_items": [
+    "Protect one long B2 Präsenz block early in the week (90m) — everything else is supporting that.",
+    "If motivation drops: do one micro-chunk first (Seeed – Aufstehn 4m) to get started, then return to B2.",
+    "End-of-day: keep 10m for DW or Recap to close loops (small wins, low friction)."
+  ],
+  "path_future_cycles_table": [
+    {
+      "label": "Chunks",
+      "Now": "9",
+      "+1": "10",
+      "+2": "9"
+    },
+    {
+      "label": "Epics",
+      "Now": "1",
+      "+1": "1",
+      "+2": "1"
+    },
+    {
+      "label": "TP planned",
+      "Now": "194",
+      "+1": "210",
+      "+2": "200"
+    },
+    {
+      "label": "RP range",
+      "Now": "OK",
+      "+1": "OK",
+      "+2": "watch"
+    }
+  ],
+  "path_is_loading": false,
+  "path_error_message": null
+}
